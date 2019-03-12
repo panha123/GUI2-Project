@@ -11,6 +11,8 @@ The Stock Portfolio App is an application that aims to help end users trade stoc
 Frontend - React
 - Marittya Keu
 - Van Ha
+
+
 Backend - Firebase
 - Sopanha Phan
 API - Alpha Vantage Stock API
