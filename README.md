@@ -20,6 +20,8 @@ API - Alpha Vantage Stock API
 
 ## Timeline
 We based our projects on a two week sprint with the exception of the first two weeks.
+
+
 | Week 1 | Task | Devs |
 |--------|------|------|
 |--------|Design Project| Everyone |
