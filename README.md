@@ -18,7 +18,25 @@ Backend - Firebase
 API - Alpha Vantage Stock API
 - Nhan Tran
 
+## Timeline
+We based our projects on a two week sprint with the exception of the first two weeks.
+| Week 1 | Task | Devs |
+|--------|------|------|
+|--------|Design Project| Everyone |
+|--------|Figure out tech stack| Everyone |
+| Week 2 |Familiarize front end | Van & Marittya|
+|------- |Familiarize back end | Sopanha |
+|--------|Familiarize with API | Nhan |
+| Week 3 |Protype/Wireframe project | Everyone |
+| Week 5 |Build frontend | Van & Marittya |
+|--------|Build backend | Sopanha |
+|--------|Incorporate API with frontend| Nhan |
+| Week 7 | Have alhpa version finished| Everyone |
+| Week 9 | System Analysis/Regression Testing| Everyone |
+| Week 11 | Present | Everyone |
 
+
+   
 ## Prerequesites
 Here we will list a step by step guide on how to get the dev environment running
 
