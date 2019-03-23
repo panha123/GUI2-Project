@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authAction';
 import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 export class SignIn extends Component {
     state = {
@@ -41,6 +42,9 @@ export class SignIn extends Component {
                         <div className="red-text center">
                             { authError ? <p>{authError}</p> : null}
                         </div>
+                    </div>
+                    <div className="input-field">
+                        <NavLink to='/forgotpassword'>Forgot Password</NavLink>
                     </div>
                 </form>
             </div>

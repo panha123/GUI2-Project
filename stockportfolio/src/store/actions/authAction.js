@@ -35,7 +35,10 @@ export const signUp = (newUser) => {
             return firestore.collection('user').doc(resp.user.uid).set({
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
-                initials: newUser.firstName[0] + newUser.lastName[0]
+                initials: newUser.firstName[0] + newUser.lastName[0],
+                income: newUser.income,
+                filingstatus: newUser.filingstatus,
+                dependents: newUser.dependents
             })
         }).then(() => {
             dispatch({ type: 'SIGNUP_SUCCESS'}) // handled in authReducer.js

@@ -8,7 +8,11 @@ export class SignUp extends Component {
         email: '',
         password: '',
         firstName: '',
-        lastName: ''
+        lastName: '',
+        income: '',
+        filingStatus: '',
+        dependents: ''
+
     }
 
     handleChange = (e) => {
@@ -46,6 +50,18 @@ export class SignUp extends Component {
                     <div className="input-field">
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" onChange={this.handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="income">Income</label>
+                        <input type="text" id="income" onChange={this.handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="filingstatus">Filing Status</label>
+                        <input type="text" id="filingstatus" onChange={this.handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="dependents">Number of Dependents</label>
+                        <input type="text" id="dependents" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field"> 
                         <button className="btn light-blue lighten-1 z-depth-0">Sign Up</button>
