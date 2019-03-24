@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-
+import Pika from '../../img/pika.jpg';
 
 
 export class Dashboard2 extends Component {
@@ -24,36 +23,18 @@ export class Dashboard2 extends Component {
           - YTD Taxes
         */}
         <h1>TEST</h1>
-        <div className="col m5">
+        <div className="col m4">
+          <div className="ProfPic center">
+              <img src={Pika} alt="Pika" width="400" height="300"/>
+              <br/>
+              <span id="UserName center">User name</span>
+            </div>
+            <div className="InfoBox center">
+              <div className="col s6">6-columns (one-half)</div>
+              <div className="col s6">6-columns (one-half)</div>
+            </div>
         </div>
 
-=======
-import React, { Component } from 'react'
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-
-export class Dashboard2 extends Component {
-  render() {
-    const { projects, auth } = this.props;
-      if (!auth.uid) {
-        return <Redirect to="/signin" />;
-      }
-      return (
-        <div className="dashboard row main-dash">
-          {/* 
-            left side dashboard
-            - user avatar
-            - transaction data
-            - equity
-            - YTD Gains
-            - YTD Taxes
-          */}
-          <h1>TEST</h1>
-          <div className="col m5">
-          </div>
->>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8
 
 
 
@@ -63,11 +44,11 @@ export class Dashboard2 extends Component {
             - What if engine
               - Ticker
               - Date
-              - Numbers of shares
+              - Numbers of shares 
               - Price
               - Submit button
           */}
-          <div className="col m7">
+          <div className="col m8">
             <div className="">
             {/* Graph Div placeholder */}
             <div className="graph">
@@ -127,12 +108,7 @@ export class Dashboard2 extends Component {
       )
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8
 const mapStateToProps = state => {
-  console.log(state);
   return {
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth
@@ -141,8 +117,4 @@ const mapStateToProps = state => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: "projects" }])
-<<<<<<< HEAD
 )(Dashboard2);
-=======
-)(Dashboard2);
->>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8

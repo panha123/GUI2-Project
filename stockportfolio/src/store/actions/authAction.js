@@ -38,7 +38,8 @@ export const signUp = (newUser) => {
                 initials: newUser.firstName[0] + newUser.lastName[0],
                 income: newUser.income,
                 filingstatus: newUser.filingstatus,
-                dependents: newUser.dependents
+                dependents: newUser.dependents,
+                email: newUser.email
             })
         }).then(() => {
             dispatch({ type: 'SIGNUP_SUCCESS'}) // handled in authReducer.js
