@@ -1,3 +1,33 @@
+<<<<<<< HEAD
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { Redirect } from "react-router-dom";
+
+
+
+export class Dashboard2 extends Component {
+  render() {
+    const {auth, uid } = this.props;
+    if (!auth.uid) {
+      return <Redirect to="/signin" />;
+    }
+    return (
+      <div className="dashboard row main-dash">
+        {/* 
+          left side dashboard
+          - user avatar
+          - transaction data
+          - equity
+          - YTD Gains
+          - YTD Taxes
+        */}
+        <h1>TEST</h1>
+        <div className="col m5">
+        </div>
+
+=======
 import React, { Component } from 'react'
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -23,6 +53,7 @@ export class Dashboard2 extends Component {
           <h1>TEST</h1>
           <div className="col m5">
           </div>
+>>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8
 
 
 
@@ -96,6 +127,10 @@ export class Dashboard2 extends Component {
       )
   }
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8
 const mapStateToProps = state => {
   console.log(state);
   return {
@@ -106,4 +141,8 @@ const mapStateToProps = state => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: "projects" }])
+<<<<<<< HEAD
 )(Dashboard2);
+=======
+)(Dashboard2);
+>>>>>>> 04663b8dfcaa4d47a14a29323d2cb60ea79ab9e8
