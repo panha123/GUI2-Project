@@ -5,12 +5,11 @@ import firebase from 'firebase/app';
 export default class UpdateProfile extends Component {
 
     state = {
-        email: '',
-        password: '',
         firstName: '',
         lastName: '',
+        email: '',
         income: '',
-        filingStatus: '',
+        filingstatus: '',
         dependents: ''
 
     }
@@ -55,28 +54,24 @@ export default class UpdateProfile extends Component {
                         <div><input type="text" id="firstName"  value={this.state.firstName} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName"  value={this.state.lastName} onChange={this.handleChange}/>
+                        <div><label htmlFor="lastName">Last Name</label></div>
+                        <div><input type="text" id="lastName"  value={this.state.lastName} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" value={this.state.email} onChange={this.handleChange}/>
+                        <div><label htmlFor="email">Email</label></div>
+                        <div><input type="email" id="email" value={this.state.email} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange}/>
+                        <div><label htmlFor="income">Income</label></div>
+                        <div><input type="number" id="income" value={this.state.income} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="income">Income</label>
-                        <input type="number" id="income" value={this.state.income} onChange={this.handleChange}/>
+                        <div><label htmlFor="filingstatus">Filing Status</label></div>
+                        <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="filingstatus">Filing Status</label>
-                        <input type="text" id="filingstatus" value={this.state.filingStatus} onChange={this.handleChange}/>
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="dependents">Number of Dependents</label>
-                        <input type="number" id="dependents" value={this.state.dependents} onChange={this.handleChange}/>
+                        <div><label htmlFor="dependents">Number of Dependents</label></div>
+                        <div><input type="number" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field"> 
                         <button className="btn light-blue lighten-1 z-depth-0">Submit</button>
