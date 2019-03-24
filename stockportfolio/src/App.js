@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
+<<<<<<< HEAD
+=======
+import Dashboard2 from "./components/dashboard/Dashboard2";
+>>>>>>> 500b156e1bab4aa174ab71a6feb8023fc5a6b890
 import ProjectDetails from "./components/projects/ProjectDetails";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
@@ -9,8 +13,13 @@ import ForgetPassword from "./components/auth/ForgetPassword";
 import Dashboard2 from './components/dashboard/Dashboard2';
 
 class App extends Component {
+<<<<<<< HEAD
   render() {
     return (
+=======
+      render() {
+        return (
+>>>>>>> 500b156e1bab4aa174ab71a6feb8023fc5a6b890
       <BrowserRouter>
         <div className="App">
           <Navbar />
@@ -25,7 +34,9 @@ class App extends Component {
         </div>
       </BrowserRouter>
     );
+   }
   }
-}
 
+
+  
 export default App;
