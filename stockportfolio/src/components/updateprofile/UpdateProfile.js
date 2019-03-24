@@ -36,7 +36,6 @@ export default class UpdateProfile extends Component {
             if (doc.exists) {
                 this.setState(doc.data());
             } else {
-                
                 console.log("No such document!");
             }
         }).catch(function(error) {
