@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.4",
+    "firebase": "^5.9.1",
+    "react": "^16.8.5",
     "react-dom": "^16.8.4",
+    "react-redux": "^4.4.9",
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "typescript": "^3.3.4000"
   },
   "scripts": {
