@@ -7,6 +7,7 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import CreateProject from "./components/projects/CreateProject";
 import ForgetPassword from "./components/auth/forgetpassword";
+import Dashboard2 from './components/dashboard/Dashboard2';
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Dashboard} />
+            {/* <Route exact path="/" component={Dashboard} /> */}
+            <Route exact path="/" component={Dashboard2} />
             <Route path="/project/:id" component={ProjectDetails} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
