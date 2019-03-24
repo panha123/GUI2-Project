@@ -23,15 +23,15 @@ export class Dashboard2 extends Component {
           - YTD Taxes
         */}
         <h1>TEST</h1>
-        <div className="col m5">
+        <div className="col m4">
           <div className="ProfPic center">
               <img src={Pika} alt="Pika" width="400" height="300"/>
               <br/>
               <span id="UserName center">User name</span>
             </div>
             <div className="InfoBox center">
-              <div class="col s6">6-columns (one-half)</div>
-              <div class="col s6">6-columns (one-half)</div>
+              <div className="col s6">6-columns (one-half)</div>
+              <div className="col s6">6-columns (one-half)</div>
             </div>
         </div>
 
@@ -44,11 +44,11 @@ export class Dashboard2 extends Component {
             - What if engine
               - Ticker
               - Date
-              - Numbers of shares
+              - Numbers of shares 
               - Price
               - Submit button
           */}
-          <div className="col m7">
+          <div className="col m8">
             <div className="">
             {/* Graph Div placeholder */}
             <div className="graph">
@@ -109,7 +109,6 @@ export class Dashboard2 extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state);
   return {
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth
