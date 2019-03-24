@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
-
+import { Redirect } from 'react-router-dom';
 
 export default class UpdateProfile extends Component {
 
@@ -22,9 +22,9 @@ export default class UpdateProfile extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-
         const db = firebase.firestore();
         db.collection('user').doc(firebase.auth().currentUser.uid).update(this.state);
+        this.props.history.push('/');
     }
 
 
@@ -36,7 +36,6 @@ export default class UpdateProfile extends Component {
             if (doc.exists) {
                 this.setState(doc.data());
             } else {
-                // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch(function(error) {
@@ -44,6 +43,7 @@ export default class UpdateProfile extends Component {
         });    }
 
     render() {
+        console.log(this.state.redirect)
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
@@ -74,7 +74,7 @@ export default class UpdateProfile extends Component {
                         <div><input type="number" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field"> 
-                        <button className="btn light-blue lighten-1 z-depth-0">Submit</button>
+                        <button className="btn light-blue lighten-1 z-depth-0" >Submit</button>
                     </div>
                 </form>
             </div>

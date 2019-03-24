@@ -7,9 +7,6 @@ export class Holdings extends Component {
         firstName: ''
     }
     
-    // componentDidMount() {
-    //     window.addEventListener("load", this.props.fetchUserProfile());
-    // }
 
     render() {
         let value = this.props.fetchUserProfile(this.state);
