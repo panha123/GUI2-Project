@@ -6,8 +6,7 @@ import ProjectDetails from "./components/projects/ProjectDetails";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import CreateProject from "./components/projects/CreateProject";
-import ForgetPassword from "./components/auth/forgetpassword";
-
+import ForgetPassword from "./components/auth/ForgetPassword";
 class App extends Component {
   render() {
     return (
@@ -20,7 +19,8 @@ class App extends Component {
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
             <Route path="/createproject" component={CreateProject} />
-            <Route path="/forgetpassword" component={ForgetPassword} />
+            <Route path="/ForgetPassword" component={ForgetPassword} />
+            <Route path="/UserProfile" component={UserProfile} />
           </Switch>
         </div>
       </BrowserRouter>
