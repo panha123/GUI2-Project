@@ -30,8 +30,8 @@ export class Dashboard2 extends Component {
               <span id="UserName center">User name</span>
             </div>
             <div className="InfoBox center">
-              <div class="col s6">6-columns (one-half)</div>
-              <div class="col s6">6-columns (one-half)</div>
+              <div className="col s6">6-columns (one-half)</div>
+              <div className="col s6">6-columns (one-half)</div>
             </div>
         </div>
 
