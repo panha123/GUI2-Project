@@ -13,12 +13,12 @@ export const signIn = (credentials) => {
     }
 }
 
-export const signOut = () => {
+export const signOut = (props) => {
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
 
         firebase.auth().signOut().then(() => {
-            dispatch({ type: 'SIGNOUT_SUCCESS' })
+            dispatch({ type: 'SIGNOUT_SUCCESS' });
         });
     }
 }
