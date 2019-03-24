@@ -16,9 +16,8 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Dashboard2} />
+            <Route exact path="/" component={Dashboard2}/>
             {/* <Route exact path="/" component={Dashboard} /> */}
-            <Route exact path="/" component={Dashboard2} />
             <Route path="/project/:id" component={ProjectDetails} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />

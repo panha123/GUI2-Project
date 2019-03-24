@@ -1,8 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 
 
-export default class Dashboard2 extends Component {
+
+export class Dashboard2 extends Component {
   render() {
+    const {auth, uid } = this.props;
+    if (!auth.uid) {
+      return <Redirect to="/signin" />;
+    }
     return (
       <div className="dashboard row main-dash">
         {/* 
@@ -89,3 +98,15 @@ export default class Dashboard2 extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    projects: state.firestore.ordered.projects,
+    auth: state.firebase.auth
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "projects" }])
+)(Dashboard2);
