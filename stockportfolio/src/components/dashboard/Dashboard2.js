@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class Dashboard2 extends Component {
   render() {
     return (
@@ -12,6 +13,7 @@ export default class Dashboard2 extends Component {
           - YTD Gains
           - YTD Taxes
         */}
+        <h1>TEST</h1>
         <div className="col m5">
         </div>
 
