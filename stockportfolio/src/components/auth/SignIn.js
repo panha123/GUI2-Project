@@ -44,7 +44,7 @@ export class SignIn extends Component {
                         </div>
                     </div>
                     <div className="input-field">
-                        <NavLink to='/forgotpassword'>Forgot Password</NavLink>
+                        <NavLink to='/forgetpassword'>Forgot Password</NavLink>
                     </div>
                 </form>
             </div>

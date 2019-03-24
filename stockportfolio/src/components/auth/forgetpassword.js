@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class ForgetPassword extends Component {
+export class ForgetPassword extends Component {
   render() {
     return (
       <div>
@@ -9,3 +9,5 @@ export default class ForgetPassword extends Component {
     );
   }
 }
+
+export default ForgetPassword;
