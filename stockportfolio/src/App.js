@@ -8,6 +8,7 @@ import CreateProject from "./components/projects/CreateProject";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import Dashboard2 from './components/dashboard/Dashboard2';
 import Holdings from './components/dashboard/Holdings';
+import UpdateProfile from "./components/updateprofile/UpdateProfile";
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path="/createproject" component={CreateProject} />
             <Route path="/ForgetPassword" component={ForgetPassword} />
             <Route path="/holdings" component={Holdings} />
+            <Route path="/updateprofile" component={UpdateProfile} />
           </Switch>
         </div>
       </BrowserRouter>
