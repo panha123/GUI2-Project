@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-class UpdateProfile extends Component {
+export class UpdateProfile extends Component {
     render() {
         return (
         <div className="container">
