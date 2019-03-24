@@ -11,7 +11,7 @@ const SignedInLinks = (props) => {
       <ul className="right">
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/holdings'>Holdings</NavLink></li>
-        <li><NavLink to='/profile'>Profile</NavLink></li>
+        <li><NavLink to='/updateprofile'>Profile</NavLink></li>
         <li><a onClick={props.signOut}>Sign Out</a> </li>
       </ul>
     </div>
