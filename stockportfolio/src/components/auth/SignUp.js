@@ -11,7 +11,8 @@ export class SignUp extends Component {
         lastName: '',
         income: '',
         filingStatus: '',
-        dependents: ''
+        dependents: '',
+        image: ''
 
     }
 
@@ -20,6 +21,7 @@ export class SignUp extends Component {
             [e.target.id] : e.target.value
         })
     }
+
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +33,7 @@ export class SignUp extends Component {
             return <Redirect to='/'/>
         }
         return (
-            <div className="container">
+            <div className="container z-depth-3 signup">
                 <form onSubmit={this.handleSubmit} className="white">
                     <h5 className="grey-text text-darken-3">Sign Up</h5>
                     <br/>
@@ -64,7 +66,8 @@ export class SignUp extends Component {
                         <input type="text" id="dependents" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field"> 
-                        <button className="btn light-blue lighten-1 z-depth-0">Sign Up</button>
+                    <br/><br/>
+                    <button type="submit" className="waves-effect waves-light green btn" value="submit">Sign Up</button> 
                         <div className="red-text center">
                             { authError ? <p>{ authError }</p> : null }
                         </div>

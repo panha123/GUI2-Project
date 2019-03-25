@@ -20,11 +20,10 @@ body {
 
 form {
   padding: 20px;
-  margin-top: 60px;
 }
 
 form button, form h5 {
-  margin: 20px, 0;
+  margin: 20px 0;
 }
 
 input[type="text"]:not(.browser-default):focus:not([readonly]),
@@ -36,7 +35,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .main-dash {
-  width: 90%;
+  width: 100%;
 }
 
 .radiobutton {
@@ -44,5 +43,38 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .graph {
-  margin-bottom: 15%;
+  margin-bottom: 5%;
+  margin-top: 2%;
+}
+
+.signin {
+  margin-top: 5%;
+  width: 40%;
+}
+
+.leftnav {
+  margin-left: 3% !important;
+  margin-top: 1.25%;
+}
+
+.rightnav {
+  margin-right: 2%;
+}
+
+.ProfPic {
+  margin-top: 5%;
+}
+
+.card-image {
+  height: 150px;
+  background-image: url('../src/img/stock.jpg');
+  background-size: 100%;
+}
+
+.signup {
+  margin-top: 3%;
+}
+
+.updateprofile {
+  margin-top: 2.5%;
 }
