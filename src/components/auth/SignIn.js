@@ -34,7 +34,7 @@ export class SignIn extends Component {
                 <form onSubmit={this.handleSubmit} className=" card-content">
                     <h5 className="grey-text text-darken-3">Sign In</h5> 
                     <div className="input-field">
-                        <label htmlFor="email">EmaAil</label>
+                        <label htmlFor="email">Email</label>
                         <input type="email"id="email" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
