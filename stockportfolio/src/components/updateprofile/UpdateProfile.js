@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 
-
-export default class UpdateProfile extends Component {
+export class UpdateProfile extends Component {
 
     state = {
         firstName: '',
@@ -11,7 +14,6 @@ export default class UpdateProfile extends Component {
         income: '',
         filingstatus: '',
         dependents: ''
-
     }
 
     handleChange = (e) => {
@@ -22,30 +24,35 @@ export default class UpdateProfile extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-
         const db = firebase.firestore();
         db.collection('user').doc(firebase.auth().currentUser.uid).update(this.state);
+        this.props.history.push('/');
     }
 
 
     componentDidMount = () => {
         const db = firebase.firestore();
         const docRef = db.collection('user').doc(firebase.auth().currentUser.uid);
-        console.log(firebase.auth().currentUser.uid);
         docRef.get().then((doc) => {
             if (doc.exists) {
                 this.setState(doc.data());
             } else {
-                // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch(function(error) {
             console.log("Error getting document:", error);
-        });    }
+        });    
+    }
 
     render() {
+        const { auth } = this.props;
+
+        if (!auth.uid) {
+            return <Redirect to="/signin" />;
+        }
+
         return (
-            <div className="container">
+            <div className="container z-depth-4 updateprofile">
                 <form onSubmit={this.handleSubmit} className="white">
                     <h5 className="grey-text text-darken-3">Update Profile</h5>
                     <br/>
@@ -73,11 +80,25 @@ export default class UpdateProfile extends Component {
                         <div><label htmlFor="dependents">Number of Dependents</label></div>
                         <div><input type="number" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
                     </div>
+                    <br/>
                     <div className="input-field"> 
-                        <button className="btn light-blue lighten-1 z-depth-0">Submit</button>
+                        <button className="waves-effect waves-light btn green left" >Submit</button>
                     </div>
+                    <br/><br/><br/>
                 </form>
             </div>
         )
     }
   }
+
+  const mapStateToProps = state => {
+    return {
+      projects: state.firestore.ordered.projects,
+      auth: state.firebase.auth
+    };
+  };
+
+  export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([{ collection: "projects" }])
+  )(UpdateProfile);

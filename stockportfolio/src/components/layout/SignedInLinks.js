@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,8 +9,8 @@ const SignedInLinks = (props) => {
     <div>
       <ul className="right">
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/holdings'>Holdings</NavLink></li>
         <li><NavLink to='/updateprofile'>Profile</NavLink></li>
+        <li><NavLink to='/holdings'>Holdings</NavLink></li>
         <li><a onClick={props.signOut}>Sign Out</a> </li>
       </ul>
     </div>
