@@ -1,0 +1,4 @@
+[build]
+base = "stockportfolio/"
+publish = "stockportfolio/build"
+command = "npm build"
