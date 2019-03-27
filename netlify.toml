@@ -1,6 +1,6 @@
 [build]
 base = ""
-publish = "./stockportfolio/build"
+publish = "GUI2-Project/stockportfolio/build"
 command = "npm build"
 
 [[redirects]]
