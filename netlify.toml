@@ -1,7 +1,6 @@
 [build]
-base = "stockportfolio/"
-publish = "stockportfolio/build"
-command = "npm build"
+publish = "/build"
+command = "npm run-script build"
 
 [[redirects]]
 from = "/*"
