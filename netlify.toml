@@ -1,7 +1,7 @@
 [build]
 base = ""
 publish = "GUI2-Project/stockportfolio/build"
-command = "npm build"
+command = "npm run-script build"
 
 [[redirects]]
 from = "/*"
