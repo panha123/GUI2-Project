@@ -1,4 +1,4 @@
 [build]
-base = "stockportfolio/"
+base = ""
 publish = "stockportfolio/build"
 command = "npm run-script build"
