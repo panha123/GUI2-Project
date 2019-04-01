@@ -15,6 +15,7 @@ Frontend - React
 
 Backend - Firebase
 - Sopanha Phan
+
 API - Alpha Vantage Stock API
 - Nhan Tran
 
