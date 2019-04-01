@@ -19,7 +19,7 @@ export class ForgetPassword extends Component {
 
     handleSubmit = (e) => {
 
-        if (this.state.email == "") {
+        if (this.state.email === "") {
             alert("The email field is empty!!!")
             e.preventDefault();
             return

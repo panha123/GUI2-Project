@@ -39,31 +39,31 @@ export class SignUp extends Component {
                     <br/>
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" onChange={this.handleChange}/>
+                        <input required type="text" id="firstName" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" onChange={this.handleChange}/>
+                        <input required type="text" id="lastName" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={this.handleChange}/>
+                        <input required type="email" id="email" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange}/>
+                        <input required type="password" id="password" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="income">Income</label>
-                        <input type="text" id="income" onChange={this.handleChange}/>
+                        <input required type="number" min="0" id="income" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="filingstatus">Filing Status</label>
-                        <input type="text" id="filingstatus" onChange={this.handleChange}/>
+                        <input required type="text" id="filingstatus" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="dependents">Number of Dependents</label>
-                        <input type="text" id="dependents" onChange={this.handleChange}/>
+                        <input required type="number" min="0" id="dependents" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field"> 
                     <br/><br/>

@@ -76,12 +76,20 @@ export class Dashboard extends Component {
           <div className="ProfPic center">
             <img src={Pika} alt="Pika" width="200" height="200"/>
             <br/>
-            <span id="UserName center">User name</span>
+            <span id="UserName center">{auth.uid}</span>
           </div>
           <br/><br/><br/>
           <div className="InfoBox row center">
-            <div className="col s6">6-columns (one-half)</div>
-            <div className="col s6">6-columns (one-half)</div>
+            <div className="col s6">Market Value: </div>
+            <div className="col s6" id="marketValue">0</div>
+          </div>
+          <div className="InfoBox row center">
+            <div className="col s6">YTD Gains: </div>
+            <div className="col s6" id="ytdGain">0</div>
+          </div>
+          <div className="InfoBox row center">
+            <div className="col s6">YTD Taxes: </div>
+            <div className="col s6" id="ytdTaxes">0</div>
           </div>
         </div>
 
@@ -92,20 +100,20 @@ export class Dashboard extends Component {
             </div>
             <div className="inputfield">
               <div>
-                <label htmlFor="graph">Ticker</label>
-                <input type="text"></input>
+                <label htmlFor="ticker">Stock Ticker Symbol</label>
+                <input required type="text" name="ticker"></input>
               </div>
               <div >
-                <label htmlFor="graph">Date</label>
-                <input type="text"></input>
+                <label htmlFor="date">Date</label>
+                <input required type="date" name="date"></input>
               </div>
               <div>
-                <label htmlFor="graph">Number of shares</label>
-                <input type="text"></input>
+                <label htmlFor="numberOfShares">Number of shares</label>
+                <input required type="number" min="1" name="numberOfShares"></input>
               </div>
               <div>
-                <label htmlFor="graph">Price</label>
-                <input type="text"></input>
+                <label htmlFor="price">Price</label> 
+                <input required type="number" step="0.01"  min="0.01" name="price"></input>
               </div>
             </div>
           <br/>
@@ -113,22 +121,22 @@ export class Dashboard extends Component {
             <div className="row">
               <label>
                 <input name="group1" type="radio" />
-                <span className="radiobutton">What If Simulation</span>
+                <span className="radiobutton" name="scenario" value="whatIf">What If Simulation</span>
               </label>
                 
               <label>
                 <input name="group1" type="radio" />
-                <span className="radiobutton">Record</span>
+                <span className="radiobutton" name="scenario" value="record">Record</span>
               </label>
             </div>
             <div className="row">
-              <label>
+            <label>
                   <input name="group2" type="radio" />
-                  <span className="radiobutton">Buy</span>
+                  <span className="radiobutton" name="transactionType" value="buy">Buy</span>
                 </label>
                 <label>
                   <input name="group2" type="radio" />
-                  <span className="radiobutton">Sell</span>
+                  <span className="radiobutton" name="transactionType" value="sell">Sell</span>
                 </label>
             </div>   
             <br/> 

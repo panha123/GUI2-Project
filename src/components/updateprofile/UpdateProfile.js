@@ -33,6 +33,7 @@ export class UpdateProfile extends Component {
     componentDidMount = () => {
         const db = firebase.firestore();
         const docRef = db.collection('user').doc(firebase.auth().currentUser.uid);
+        console.log(docRef);
         docRef.get().then((doc) => {
             if (doc.exists) {
                 this.setState(doc.data());
@@ -70,15 +71,15 @@ export class UpdateProfile extends Component {
                     </div>
                     <div className="input-field">
                         <div><label htmlFor="income">Income</label></div>
-                        <div><input type="number" id="income" value={this.state.income} onChange={this.handleChange}/></div>
+                        <div><input type="number" min="0" id="income" value={this.state.income} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
                         <div><label htmlFor="filingstatus">Filing Status</label></div>
-                        <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div>
+                       <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
                         <div><label htmlFor="dependents">Number of Dependents</label></div>
-                        <div><input type="number" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
+                        <div><input type="number" min="0" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
                     </div>
                     <br/>
                     <div className="input-field"> 
