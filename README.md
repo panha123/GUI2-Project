@@ -48,3 +48,11 @@ Here we will list a step by step guide on how to get the dev environment running
 
 
 ## How to install
+1. CD into directory
+2. Git clone https://github.com/panha123/GUI2-Project.git
+3. NPM install 
+4. NPM start
+
+or visit the website hosted by Netlify
+
+https://stockportfolio.netlify.com/signin
