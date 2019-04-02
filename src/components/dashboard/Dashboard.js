@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+import firebase from 'firebase/app';
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import Pika from '../../img/pika.jpg';
 import { Line } from 'react-chartjs-2';
+import {Avatar} from '../avatar/Avatar';
+import {InfoBox} from '../infoBox/InfoBox';
 
 
 export class Dashboard extends Component {
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const db = firebase.firestore();
+    console.log(e.target.transactionType);
+    db.collection("transactions").add({
+        ticker: e.target.ticker.value.toUpperCase(),
+        numberOfShares: e.target.numberOfShares.value,
+        price: e.target.price.value,
+        date: e.target.date.value,
+        fee: e.target.fee.value,
+        /*transactionType: e.target.transactionType.value*/
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+    }
+
   render() {
     const { auth } = this.props;
     const data = {
@@ -73,75 +96,66 @@ export class Dashboard extends Component {
           - YTD Taxes
         */}
         <div className="col m3 left z-depth-4 leftnav">
-          <div className="ProfPic center">
-            <img src={Pika} alt="Pika" width="200" height="200"/>
-            <br/>
-            <span id="UserName center">{auth.uid}</span>
-          </div>
+          <Avatar />
           <br/><br/><br/>
-          <div className="InfoBox row center">
-            <div className="col s6">Market Value: </div>
-            <div className="col s6" id="marketValue">0</div>
-          </div>
-          <div className="InfoBox row center">
-            <div className="col s6">YTD Gains: </div>
-            <div className="col s6" id="ytdGain">0</div>
-          </div>
-          <div className="InfoBox row center">
-            <div className="col s6">YTD Taxes: </div>
-            <div className="col s6" id="ytdTaxes">0</div>
-          </div>
+          <InfoBox />
         </div>
-
 
         <div className="col m8 right rightnav">
             <div className="graph z-depth-4">
               <Line data={data} width={400} height={100}/>
             </div>
-            <div className="inputfield">
-              <div>
-                <label htmlFor="ticker">Stock Ticker Symbol</label>
-                <input required type="text" name="ticker"></input>
-              </div>
-              <div >
-                <label htmlFor="date">Date</label>
-                <input required type="date" name="date"></input>
-              </div>
-              <div>
-                <label htmlFor="numberOfShares">Number of shares</label>
-                <input required type="number" min="1" name="numberOfShares"></input>
-              </div>
-              <div>
-                <label htmlFor="price">Price</label> 
-                <input required type="number" step="0.01"  min="0.01" name="price"></input>
-              </div>
-            </div>
-          <br/>
-          <div className="row container">
-            <div className="row">
-              <label>
-                <input name="group1" type="radio" />
-                <span className="radiobutton" name="scenario" value="whatIf">What If Simulation</span>
-              </label>
-                
-              <label>
-                <input name="group1" type="radio" />
-                <span className="radiobutton" name="scenario" value="record">Record</span>
-              </label>
-            </div>
-            <div className="row">
-            <label>
-                  <input name="group2" type="radio" />
-                  <span className="radiobutton" name="transactionType" value="buy">Buy</span>
-                </label>
-                <label>
-                  <input name="group2" type="radio" />
-                  <span className="radiobutton" name="transactionType" value="sell">Sell</span>
-                </label>
-            </div>   
-            <br/> 
-              <button type="submit" className="waves-effect waves-light green btn" value="submit">Submit</button> 
-          </div>
+            <form onSubmit={this.handleSubmit}>
+                  <div className="inputfield">
+                    <div>
+                      <label htmlFor="ticker">Stock Ticker Symbol</label>
+                      <input required type="text" name="ticker"></input>
+                    </div>
+                    <div >
+                      <label htmlFor="date">Date</label>
+                      <input required type="date" name="date"></input>
+                    </div>
+                    <div>
+                      <label htmlFor="numberOfShares">Number of shares</label>
+                      <input required type="number" min="1" name="numberOfShares"></input>
+                    </div>
+                    <div>
+                      <label htmlFor="price">Price</label> 
+                      <input required type="number" step="0.01"  min="0.01" name="price"></input>
+                    </div>
+                    <div>
+                      <label htmlFor="fee">Fee</label> 
+                      <input required type="number" step="0.01"  min="0.01" name="fee"></input>
+                    </div>
+                  </div>
+                <br/>
+                <div className="row container">
+                  <div className="row">
+                    <label>
+                      <input name="group1" type="radio" />
+                      <span className="radiobutton" name="scenario" value="whatIf">What If Simulation</span>
+                    </label>
+                      
+                    <label>
+                      <input name="group1" type="radio" />
+                      <span className="radiobutton" name="scenario" value="record">Record</span>
+                    </label>
+                  </div>
+                  <div className="row">
+                  <label>
+                        <input name="group2" type="radio" />
+                        <span className="radiobutton" name="transactionType" value="buy">Buy</span>
+                      </label>
+                      <label>
+                        <input name="group2" type="radio" />
+                        <span className="radiobutton" name="transactionType" value="sell">Sell</span>
+                      </label>
+                  </div>   
+                  <br/> 
+                    <button type="submit" className="waves-effect waves-light green btn" value="submit">Submit</button> 
+                </div>
+            </form>
+            
         </div>
       </div>
       )

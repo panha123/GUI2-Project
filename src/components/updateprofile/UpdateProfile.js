@@ -33,9 +33,10 @@ export class UpdateProfile extends Component {
     componentDidMount = () => {
         const db = firebase.firestore();
         const docRef = db.collection('user').doc(firebase.auth().currentUser.uid);
-        console.log(docRef);
         docRef.get().then((doc) => {
             if (doc.exists) {
+                console.log("foo");
+                console.log(doc);
                 this.setState(doc.data());
             } else {
                 console.log("No such document!");
