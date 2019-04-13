@@ -14,21 +14,41 @@ export class Dashboard extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const db = firebase.firestore();
-    
-    db.collection("transactions").add({
+    const uid =firebase.auth().currentUser.uid;
+    const cost = e.target.fee.value +  e.target.numberOfShares.value + e.target.price.value;
+    const subcollections =[];
+    const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
+
+    if (e.target.transactionType.value === "buy") {
+      collectionRef.add({
         ticker: e.target.ticker.value.toUpperCase(),
         numberOfShares: e.target.numberOfShares.value,
         price: e.target.price.value,
         date: e.target.date.value,
         fee: e.target.fee.value,
-        transactionType: e.target.transactionType.value
+        transactionType: e.target.transactionType.value,
+        totalCost : cost,
+        remainingCost: cost,
+        sharesAvailable: e.target.numberOfShares.value
       })
       .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
+        console.log("Document written with ID: ", docRef.id);
       })
       .catch(function(error) {
           console.error("Error adding document: ", error);
       });
+    }
+    else {
+      collectionRef
+      .where("ticker", "==", e.target.ticker.value)
+      .get()
+      .then(querySnapShot => {
+        querySnapShot.docs.forEach( doc => {
+          console.log(doc.data());
+        })
+      })
+    }
+   
     }
 
   render() {

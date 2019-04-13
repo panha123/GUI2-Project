@@ -11,8 +11,9 @@ export class MarketVal extends Component {
 
     componentDidMount() {
       const db = firebase.firestore();
-  
-      db.collection("transactions").onSnapshot((querySnapshot) => {
+      const uid =firebase.auth().currentUser.uid;
+
+      db.collection(`user/${uid}/transactions`).onSnapshot((querySnapshot) => {
         let total = 0;;
           querySnapshot.forEach((doc) => {        
               total += (doc.data().price * doc.data().numberOfShares);

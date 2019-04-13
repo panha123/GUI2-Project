@@ -24,8 +24,10 @@ export class UpdateProfile extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        const uid = firebase.auth().currentUser.uid;
         const db = firebase.firestore();
-        db.collection('user').doc(firebase.auth().currentUser.uid).update(this.state);
+        db.collection('user').doc(uid).update(this.state);
         this.props.history.push('/');
     }
 
