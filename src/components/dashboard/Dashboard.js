@@ -60,10 +60,7 @@ export class Dashboard extends Component {
       let fee = Number(e.target.fee.value) / shares;
       collectionRef
       .where("ticker", "==", tick)
-<<<<<<< HEAD
-=======
       .where("transactionType", "==", "buy")
->>>>>>> 3f4a0f88d62c7fc1c5b8f2e9d3e61fc454eaf53e
       .orderBy("date")
       .get()
       .then(querySnapShot => {
