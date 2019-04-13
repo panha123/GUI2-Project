@@ -39,14 +39,50 @@ export class Dashboard extends Component {
       });
     }
     else {
+
+      collectionRef.add({
+        ticker: e.target.ticker.value.toUpperCase(),
+        numberOfShares: e.target.numberOfShares.value,
+        price: e.target.price.value,
+        date: e.target.date.value,
+        fee: e.target.fee.value,
+        transactionType: e.target.transactionType.value
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+
       let tick = e.target.ticker.value.toUpperCase();
+      let shares = e.target.numberOfShares.value;
       collectionRef
       .where("ticker", "==", tick)
+<<<<<<< HEAD
+=======
+      .where("transactionType", "==", "buy")
+>>>>>>> 3f4a0f88d62c7fc1c5b8f2e9d3e61fc454eaf53e
       .orderBy("date")
       .get()
       .then(querySnapShot => {
         querySnapShot.docs.forEach( doc => {
-          console.log(doc.data());
+          let obj = doc.data();
+          let sharesAvailable = obj.sharesAvailable;
+          let remainingCost = obj.remainingCost;
+          let costPerShare = (remainingCost / sharesAvailable).toFixed(2);
+          let shareToSell = Math.min(sharesAvailable, shares);
+          let costToSell = Math.min(remainingCost, (shareToSell * costPerShare) );
+          
+          
+          if( shares != 0 ){
+            shares = shares - shareToSell;
+            remainingCost = remainingCost - costToSell;
+            
+            obj.sharesAvailable = shares;
+            obj.remainingCost = remainingCost;
+            obj.update();
+          }
         })
       })
     }
