@@ -15,21 +15,21 @@ export class Dashboard extends Component {
     e.preventDefault();
     const db = firebase.firestore();
     const uid =firebase.auth().currentUser.uid;
-    const cost = e.target.fee.value +  e.target.numberOfShares.value + e.target.price.value;
+    const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
     const subcollections =[];
     const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
 
     if (e.target.transactionType.value === "buy") {
       collectionRef.add({
         ticker: e.target.ticker.value.toUpperCase(),
-        numberOfShares: e.target.numberOfShares.value,
-        price: e.target.price.value,
+        numberOfShares: Number(e.target.numberOfShares.value),
+        price: Number(e.target.price.value),
         date: e.target.date.value,
-        fee: e.target.fee.value,
+        fee: Number(e.target.fee.value),
         transactionType: e.target.transactionType.value,
         totalCost : cost,
         remainingCost: cost,
-        sharesAvailable: e.target.numberOfShares.value
+        sharesAvailable: Number(e.target.numberOfShares.value)
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
@@ -42,10 +42,10 @@ export class Dashboard extends Component {
 
       collectionRef.add({
         ticker: e.target.ticker.value.toUpperCase(),
-        numberOfShares: e.target.numberOfShares.value,
-        price: e.target.price.value,
+        numberOfShares: Number(e.target.numberOfShares.value),
+        price: Number(e.target.price.value),
         date: e.target.date.value,
-        fee: e.target.fee.value,
+        fee: Number(e.target.fee.value),
         transactionType: e.target.transactionType.value
       })
       .then(function(docRef) {
@@ -56,7 +56,8 @@ export class Dashboard extends Component {
       });
 
       let tick = e.target.ticker.value.toUpperCase();
-      let shares = e.target.numberOfShares.value;
+      let shares = Number(e.target.numberOfShares.value);
+      let fee = Number(e.target.fee.value) / shares;
       collectionRef
       .where("ticker", "==", tick)
       .where("transactionType", "==", "buy")
@@ -65,20 +66,20 @@ export class Dashboard extends Component {
       .then(querySnapShot => {
         querySnapShot.docs.forEach( doc => {
           let obj = doc.data();
-          let sharesAvailable = obj.sharesAvailable;
-          let remainingCost = obj.remainingCost;
-          let costPerShare = (remainingCost / sharesAvailable).toFixed(2);
+          let sharesAvailable = Number(obj.sharesAvailable);
+          let remainingCost = Number(obj.remainingCost);
+          let costPerShare = ((remainingCost / sharesAvailable) + fee).toFixed(2) ;
           let shareToSell = Math.min(sharesAvailable, shares);
-          let costToSell = Math.min(remainingCost, (shareToSell * costPerShare) );
-          
+          let costToSell = (shareToSell * costPerShare);
           
           if( shares != 0 ){
             shares = shares - shareToSell;
-            remainingCost = remainingCost - costToSell;
-            
-            obj.sharesAvailable = shares;
-            obj.remainingCost = remainingCost;
-            obj.update();
+            remainingCost = (remainingCost - costToSell).toFixed(2);
+            sharesAvailable = sharesAvailable - shareToSell;
+
+            obj.sharesAvailable = sharesAvailable;
+            obj.remainingCost = Number(remainingCost) + fee;
+            doc.ref.update(obj);
           }
         })
       })
