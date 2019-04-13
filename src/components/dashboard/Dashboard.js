@@ -42,6 +42,7 @@ export class Dashboard extends Component {
       let tick = e.target.ticker.value.toUpperCase();
       collectionRef
       .where("ticker", "==", tick)
+      .orderBy("date")
       .get()
       .then(querySnapShot => {
         querySnapShot.docs.forEach( doc => {
