@@ -39,8 +39,9 @@ export class Dashboard extends Component {
       });
     }
     else {
+      let tick = e.target.ticker.value.toUpperCase();
       collectionRef
-      .where("ticker", "==", e.target.ticker.value)
+      .where("ticker", "==", tick)
       .get()
       .then(querySnapShot => {
         querySnapShot.docs.forEach( doc => {
