@@ -11,7 +11,9 @@ export class Avatar extends Component {
         income: '',
         filingstatus: '',
         dependents: '',
-        redirect: false
+        redirect: false,
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/stockportfolio-23ecf.appspot.com/o/images%2Fdefault-profile.png?alt=media&token=6ecf02e5-5a9f-4b3b-95e5-35142a01a5f9'
+
     }
     setRedirect = () => {
         this.setState({
@@ -38,17 +40,16 @@ export class Avatar extends Component {
     }
 
     render() {
-        
         return (
             <div className="ProfPic center">
-            <img src={this.state.avatarURL} width="200" height="200"/>
-            <br/>
-            <div>
-                {this.renderRedirect()}
-                <button onClick={this.setRedirect}>Update Profile Picture</button>
+                <img src={this.state.avatarURL} width="200" height="200"/>
+                <br/>
+                <div>
+                    {this.renderRedirect()}
+                    <button onClick={this.setRedirect}>Update Profile Picture</button>
+                </div>
+                <span id="UserName center">{this.state.firstName}</span>
             </div>
-            <span id="UserName center">{this.state.email}</span>
-          </div>
         )
     }
 }
