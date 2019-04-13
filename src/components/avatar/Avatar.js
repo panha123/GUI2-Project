@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
-import Pika from '../../img/pika.jpg';
 import { Redirect } from "react-router-dom";
 
 export class Avatar extends Component {
