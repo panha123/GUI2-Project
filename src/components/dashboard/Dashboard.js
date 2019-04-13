@@ -14,14 +14,14 @@ export class Dashboard extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const db = firebase.firestore();
-    console.log(e.target.transactionType);
+    
     db.collection("transactions").add({
         ticker: e.target.ticker.value.toUpperCase(),
         numberOfShares: e.target.numberOfShares.value,
         price: e.target.price.value,
         date: e.target.date.value,
         fee: e.target.fee.value,
-        /*transactionType: e.target.transactionType.value*/
+        transactionType: e.target.transactionType.value
       })
       .then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
@@ -143,12 +143,12 @@ export class Dashboard extends Component {
                   </div>
                   <div className="row">
                   <label>
-                        <input name="group2" type="radio" />
-                        <span className="radiobutton" name="transactionType" value="buy">Buy</span>
+                        <input name="group2" name="transactionType" value="buy" type="radio" />
+                        <span className="radiobutton" >Buy</span>
                       </label>
                       <label>
-                        <input name="group2" type="radio" />
-                        <span className="radiobutton" name="transactionType" value="sell">Sell</span>
+                        <input name="group2" name="transactionType" value="sell" type="radio" />
+                        <span className="radiobutton" >Sell</span>
                       </label>
                   </div>   
                   <br/> 
