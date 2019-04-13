@@ -41,7 +41,7 @@ export class Avatar extends Component {
         
         return (
             <div className="ProfPic center">
-            <img src={Pika} alt="Pika" width="200" height="200"/>
+            <img src={this.state.avatarURL} width="200" height="200"/>
             <br/>
             <div>
                 {this.renderRedirect()}

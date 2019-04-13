@@ -106,7 +106,7 @@ export class UpdateProfile extends Component {
                     <div className="input-field">
                         <div><label>Avatar:</label><br/>
                         {this.state.isUploading &&<p>Progress: {this.state.progress}</p>}
-                        {this.state.avatarURL && <img src={this.state.avatarURL} alt="Pika" width="200" height="200" />}</div>
+                        {this.state.avatarURL && <img src={this.state.avatarURL} width="200" height="200" />}</div>
                         <div><FileUploader
                             accept="image/*"
                             name="avatar"
