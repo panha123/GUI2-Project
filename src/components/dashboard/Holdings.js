@@ -4,11 +4,24 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import firebase from 'firebase/app';
-const alpha = require('alphavantage')({ key: "LQGPQG13311MZSX7" });
+const alpha = require('alphavantage')({ key: "40XXVQ2Y2VPRG3M0" });
 
 export class Holdings extends Component {
 
-	state = {tickers:null};
+	state = {
+		tickers:
+		{
+			"FB": {
+				totalShares: 100,
+				currentPrice: 100
+			},
+			"MSFT": {
+				totalShares: 50,
+				currentPrice: 50
+			}
+
+		}
+	}
 
 	// componentDidMount = () => {
 	// 	const db = firebase.firestore();
@@ -54,6 +67,9 @@ export class Holdings extends Component {
 	// 	});  
 		
 	// }
+
+	
+
 	myFunc() {
 		const db = firebase.firestore();
 		const uid = firebase.auth().currentUser.uid;
@@ -102,9 +118,10 @@ export class Holdings extends Component {
 		if (!auth.uid) {
 			return <Redirect to="/signin" />;
 		}
-		this.myFunc();
+		//this.myFunc();
 		console.log(this.state)
 		
+
 	// console.log(tickers)
 	// db.collection("transctions")
 	//   .onSnapshot(function(querySnapshot) {
@@ -112,13 +129,31 @@ export class Holdings extends Component {
 	//     totalVal += (doc.data().numberOfShares * doc.data().price);
 	// });
 
+	const holdings = Object.keys(this.state.tickers).map((key =>
+		(<tr>
+			<td>{key}</td>
+			<td>{this.state.tickers[key]["totalShares"]}</td>
+			<td>{this.state.tickers[key]["currentPrice"]}</td>
+			<td>{this.state.tickers[key]["totalShares"] * this.state.tickers[key]["currentPrice"]}</td>
+		</tr>)));
+
 	return(
-      <div>
-	{/* <h1>{totalVal}</h1> */ }
-      </div >
+		<div>
+		<table>
+		<tr>
+			<th>Stock Ticker</th>
+			<th>Total Number of Shares</th>
+			<th>Current Price</th>
+			<th>Total Value</th>
+		</tr>
+		{holdings}
+		</table>
+		
+		</div>
       )
   }
 }
+
 
 const mapStateToProps = state => {
 	return {
