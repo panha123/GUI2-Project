@@ -9,64 +9,64 @@ const alpha = require('alphavantage')({ key: "40XXVQ2Y2VPRG3M0" });
 export class Holdings extends Component {
 
 	state = {
-		tickers:
-		{
-			"FB": {
-				totalShares: 100,
-				currentPrice: 100
-			},
-			"MSFT": {
-				totalShares: 50,
-				currentPrice: 50
-			}
-
-		}
+		tickers: {}
 	}
 
-	// componentDidMount = () => {
-	// 	const db = firebase.firestore();
-	// 	const uid = firebase.auth().currentUser.uid;
-	// 	const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
-	// 	let tickers = {};
-	// 	collectionRef
-	// 		.where("transactionType", "==", "buy")
-	// 		.get()
-	// 		.then(querySnapshot => {
-	// 			const self = this;
-	// 			querySnapshot.forEach(doc => {
-	// 				let obj = doc.data();
-	// 				let key = obj.ticker;
-	// 				let value = Number(obj.sharesAvailable);
-	// 				if (!(key in tickers)) {
+	 componentDidMount = () => {
+	 	const db = firebase.firestore();
+	 	const uid = firebase.auth().currentUser.uid;
+	 	const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
+	 	let tickers = {};
+	 	collectionRef
+	 		.where("transactionType", "==", "buy")
+	 		.get()
+	 		.then(querySnapshot => {
+	 			const self = this;
+	 			querySnapshot.forEach(doc => {
+	 				let obj = doc.data();
+					let key = obj.ticker;
+					let value = Number(obj.sharesAvailable);
+					if (!(key in tickers)) {
 						
-	// 					tickers[key] = {totalShares: value, currentPrice: 0};
+						tickers[key] = {totalShares: value, currentPrice: 0, totalValue: 0};
 
-	// 				}
-	// 				else if((key in tickers)){
-	// 					let total = tickers[key] ? Number(tickers[key].totalShares) : 0;
-	// 					total += value;
-	// 					tickers[key].totalShares = total;						
-	// 				}					
-	// 			},this)
-	// 			self.setState({tickers:tickers});
-	// 	})
-	// 	.then( s =>{
-	// 		let ticks = this.state.tickers;
-	// 		for( const [key,value] of Object.entries(ticks) ){
-	// 			alpha.data.quote(key, "json").then( data =>{
-	// 				let curPrice = Number(data["Global Quote"]["05. price"]);
-	// 				this.state.tickers[key].currentPrice = curPrice.toFixed(2);
-	// 			})
+					}
+					else if((key in tickers)){
+						let total = tickers[key] ? Number(tickers[key].totalShares) : 0;
+						total += value;
+						tickers[key].totalShares = total;						
+					}					
+				},this)
+				self.setState({tickers:tickers});
+		})
+		.then( s =>{
+			let ticks = this.state.tickers;
+			for( const [key,value] of Object.entries(ticks) ){
+				alpha.data.quote(key, "json").then( data =>{
+					let stock = ticks[key];
+					let curPrice = Number(data["Global Quote"]["05. price"]);
+					curPrice = curPrice.toFixed(2);
+					stock.currentPrice = curPrice;
+					this.setState(stock);
+				})
+				.then(x => {
+					let ticks = this.state.tickers;
+					for (const [key, value] of Object.entries(ticks)) {
+						let totalVal = value["totalShares"] * value["currentPrice"];
+						value.totalValue = totalVal;
+						this.setState(value);
+					}
+				})
 
 
-	// 		}
+			}
 			
-	// 	})
-	// 	.catch(function(error) {
-    //         console.log("Error getting document:", error);
-	// 	});  
+		})
+		.catch(function(error) {
+            console.log("Error getting document:", error);
+		});  
 		
-	// }
+	}
 
 	
 
@@ -134,7 +134,7 @@ export class Holdings extends Component {
 			<td>{key}</td>
 			<td>{this.state.tickers[key]["totalShares"]}</td>
 			<td>{this.state.tickers[key]["currentPrice"]}</td>
-			<td>{this.state.tickers[key]["totalShares"] * this.state.tickers[key]["currentPrice"]}</td>
+			<td>{this.state.tickers[key]["totalValue"]}</td>
 		</tr>)));
 
 	return(
