@@ -4,10 +4,9 @@ import { firestoreConnect } from "react-redux-firebase";
 import firebase from 'firebase/app';
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import { Line } from 'react-chartjs-2';
 import {Avatar} from '../avatar/Avatar';
 import {InfoBox} from '../infoBox/InfoBox';
-
+import Graph from './Graph';
 
 export class Dashboard extends Component {
 
@@ -89,53 +88,7 @@ export class Dashboard extends Component {
 
   render() {
     const { auth } = this.props;
-    const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Apple',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: '#4CAF50',
-          borderColor: '#4CAF50',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: '#4CAF50',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 5,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: '#4CAF50',
-          pointHoverBorderColor: '#4CAF50',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label: 'Facebook',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: '#FF6347',
-          borderColor: '#FF6347',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: '#FF6347',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 5,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: '#FF6347',
-          pointHoverBorderColor: '#FF6347',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [15, 29, 30, 41, 66, 55, 90]
-        }
-      ]
-    };
+    
 
 
     if (!auth.uid) {
@@ -143,14 +96,6 @@ export class Dashboard extends Component {
     }
     return (
       <div className="dashboard row main-dash">
-        {/* 
-          left side dashboard
-          - user avatar
-          - transaction data
-          - equity
-          - YTD Gains
-          - YTD Taxes
-        */}
         <div className="col m3 left z-depth-4 leftnav">
           <Avatar />
           <br/><br/><br/>
@@ -158,9 +103,7 @@ export class Dashboard extends Component {
         </div>
 
         <div className="col m8 right rightnav">
-            <div className="graph z-depth-4">
-              <Line data={data} width={400} height={100}/>
-            </div>
+            <Graph/>
             <form onSubmit={this.handleSubmit}>
                   <div className="inputfield">
                     <div>
