@@ -16,7 +16,6 @@ export class UpdateProfile extends Component {
         email: '',
         income: '',
         filingstatus: '',
-        dependents: '',
         avatar: '',
         isUploading: false,
         progress: 0,
@@ -98,10 +97,6 @@ export class UpdateProfile extends Component {
                     <div className="input-field">
                         <div><label htmlFor="filingstatus">Filing Status</label></div>
                        <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div>
-                    </div>
-                    <div className="input-field">
-                        <div><label htmlFor="dependents">Number of Dependents</label></div>
-                        <div><input type="number" min="0" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
                         <div><label>Avatar:</label><br/>
