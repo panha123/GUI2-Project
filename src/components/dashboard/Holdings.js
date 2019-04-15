@@ -67,6 +67,7 @@ export class Holdings extends Component {
 	
 	render() {
 		const { auth } = this.props;
+		let valToDisplay ;
 		if (!auth.uid) {
 			return <Redirect to="/signin" />;
 		}
