@@ -12,7 +12,7 @@ export class Holdings extends Component {
 		tickers: {}
 	}
 
-	 componentDidMount = () => {
+	componentDidMount = () => {
 	 	const db = firebase.firestore();
 	 	const uid = firebase.auth().currentUser.uid;
 	 	const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
@@ -40,26 +40,26 @@ export class Holdings extends Component {
 				self.setState({tickers:tickers});
 		})
 		.then( s =>{
-			let ticks = this.state.tickers;
-			for( const [key,value] of Object.entries(ticks) ){
-				alpha.data.quote(key, "json").then( data =>{
-					let stock = ticks[key];
-					let curPrice = Number(data["Global Quote"]["05. price"]);
-					curPrice = curPrice.toFixed(2);
-					stock.currentPrice = curPrice;
-					this.setState(stock);
-				})
-				.then(x => {
-					let ticks = this.state.tickers;
-					for (const [key, value] of Object.entries(ticks)) {
-						let totalVal = value["totalShares"] * value["currentPrice"];
-						value.totalValue = totalVal;
-						this.setState(value);
-					}
-				})
+			// let ticks = this.state.tickers;
+			// for( const [key,value] of Object.entries(ticks) ){
+			// 	alpha.data.quote(key, "json").then( data =>{
+			// 		let stock = ticks[key];
+			// 		let curPrice = Number(data["Global Quote"]["05. price"]);
+			// 		curPrice = curPrice.toFixed(2);
+			// 		stock.currentPrice = curPrice;
+			// 		this.setState(stock);
+			// 	})
+			// 	.then(x => {
+			// 		let ticks = this.state.tickers;
+			// 		for (const [key, value] of Object.entries(ticks)) {
+			// 			let totalVal = value["totalShares"] * value["currentPrice"];
+			// 			value.totalValue = totalVal;
+			// 			this.setState(value);
+			// 		}
+			// 	})
 
 
-			}
+			// }
 			
 		})
 		.catch(function(error) {
