@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/authAction';
+import firebase from 'firebase/app';
+
 
 export class SignUp extends Component {
     state = {
@@ -11,8 +13,7 @@ export class SignUp extends Component {
         lastName: '',
         income: '',
         filingStatus: '',
-        dependents: '',
-        image: ''
+        dependents: ''
 
     }
 
@@ -27,6 +28,21 @@ export class SignUp extends Component {
         e.preventDefault();
         this.props.signUp(this.state);
     }
+
+    handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+    
+    handleProgress = (progress) => this.setState({progress});
+    
+    handleUploadError = (error) => {
+    this.setState({isUploading: false});
+    console.error(error);
+    }
+
+    handleUploadSuccess = (filename) => {
+        this.setState({avatar: filename, progress: 100, isUploading: false});
+        firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({avatarURL: url}));
+    };
+
     render() {
         const { auth, authError } = this.props;
         if(auth.uid) {
@@ -65,13 +81,13 @@ export class SignUp extends Component {
                         <label htmlFor="dependents">Number of Dependents</label>
                         <input required type="number" min="0" id="dependents" onChange={this.handleChange}/>
                     </div>
-                    <div className="input-field"> 
+                                       
                     <br/><br/>
                     <button type="submit" className="waves-effect waves-light green btn" value="submit">Sign Up</button> 
                         <div className="red-text center">
                             { authError ? <p>{ authError }</p> : null }
                         </div>
-                    </div>
+                    
                 </form>
             </div>
         )

@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
+import 'firebase/storage'
+import FileUploader from 'react-firebase-file-uploader';
+
 
 export class UpdateProfile extends Component {
 
@@ -13,7 +16,11 @@ export class UpdateProfile extends Component {
         email: '',
         income: '',
         filingstatus: '',
-        dependents: ''
+        dependents: '',
+        avatar: '',
+        isUploading: false,
+        progress: 0,
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/stockportfolio-23ecf.appspot.com/o/images%2Fdefault-profile.png?alt=media&token=6ecf02e5-5a9f-4b3b-95e5-35142a01a5f9'
     }
 
     handleChange = (e) => {
@@ -31,13 +38,26 @@ export class UpdateProfile extends Component {
         this.props.history.push('/');
     }
 
+    handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+    
+    handleProgress = (progress) => this.setState({progress});
+    
+    handleUploadError = (error) => {
+    this.setState({isUploading: false});
+    console.error(error);
+    }
+
+    handleUploadSuccess = (filename) => {
+        this.setState({avatar: filename, progress: 100, isUploading: false});
+        firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({avatarURL: url}));
+    };
 
     componentDidMount = () => {
         const db = firebase.firestore();
         const docRef = db.collection('user').doc(firebase.auth().currentUser.uid);
+        console.log(firebase.auth().currentUser.uid);
         docRef.get().then((doc) => {
             if (doc.exists) {
-                console.log("foo");
                 console.log(doc);
                 this.setState(doc.data());
             } else {
@@ -50,7 +70,6 @@ export class UpdateProfile extends Component {
 
     render() {
         const { auth } = this.props;
-
         if (!auth.uid) {
             return <Redirect to="/signin" />;
         }
@@ -83,6 +102,21 @@ export class UpdateProfile extends Component {
                     <div className="input-field">
                         <div><label htmlFor="dependents">Number of Dependents</label></div>
                         <div><input type="number" min="0" id="dependents" value={this.state.dependents} onChange={this.handleChange}/></div>
+                    </div>
+                    <div className="input-field">
+                        <div><label>Avatar:</label><br/>
+                        {this.state.isUploading &&<p>Progress: {this.state.progress}</p>}
+                        {this.state.avatarURL && <img src={this.state.avatarURL} width="200" height="200" />}</div>
+                        <div><FileUploader
+                            accept="image/*"
+                            name="avatar"
+                            randomizeFilename
+                            storageRef={firebase.storage().ref('images')}
+                            onUploadStart={this.handleUploadStart}
+                            onUploadError={this.handleUploadError}
+                            onUploadSuccess={this.handleUploadSuccess}
+                            onProgress={this.handleProgress}
+                        /></div>
                     </div>
                     <br/>
                     <div className="input-field"> 
