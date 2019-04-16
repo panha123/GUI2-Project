@@ -4,37 +4,38 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import firebase from 'firebase/app';
 
-export class MarketVal extends Component {
+export class YTDGain extends Component {
   state = {
-    totalVal: 0
+    gains: 0
   }
 
     componentDidMount() {
       const db = firebase.firestore();
       const uid =firebase.auth().currentUser.uid;
-
+      
       db.collection(`user/${uid}/transactions`).onSnapshot((querySnapshot) => {
-        let total = 0;;
+        let gains = 0;
           querySnapshot.forEach((doc) => {
-            if (doc.data().transactionType === "buy"){
-              total += (doc.data().price * doc.data().numberOfShares);
+            let gain = 0;
+            if (doc.data().transactionType === "sell"){
+              gain = Number(doc.data().gain);
+              gains += gain;
+
+              this.setState({
+                gains: gains
+            });
             }
-            else {
-              total -= (doc.data().price * doc.data().numberOfShares);
-            }
-  
+            
            });
   
-          this.setState({
-              totalVal: total
-          });
+         
       });    
   }
     render() {
         return (
            <div className="InfoBox row center">
-                    <div className="col s6">Market Value: </div>
-                    <div className="col s6" id="marketValue">{this.state.totalVal}</div>
+                    <div className="col s6">YTD Gains: </div>
+                    <div className="col s6" id="ytdGain">{this.state.gains}</div>
             </div>
         )
     }
@@ -50,4 +51,4 @@ const mapStateToProps = state => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([{ collection: "transactions" }])
-  )(MarketVal);
+  )(YTDGain);

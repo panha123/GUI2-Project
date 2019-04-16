@@ -92,7 +92,7 @@ export class Dashboard extends Component {
         date: date,
         fee: sellingFee,
         transactionType: transactionType,
-        gains: proceeds
+        gain: proceeds
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
