@@ -28,7 +28,8 @@ export class Dashboard extends Component {
         transactionType: e.target.transactionType.value,
         totalCost : cost,
         remainingCost: cost,
-        sharesAvailable: Number(e.target.numberOfShares.value)
+        sharesAvailable: Number(e.target.numberOfShares.value),
+        gain: 0
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
@@ -39,24 +40,15 @@ export class Dashboard extends Component {
     }
     else {
 
-      collectionRef.add({
-        ticker: e.target.ticker.value.toUpperCase(),
-        numberOfShares: Number(e.target.numberOfShares.value),
-        price: Number(e.target.price.value),
-        date: e.target.date.value,
-        fee: Number(e.target.fee.value),
-        transactionType: e.target.transactionType.value
-      })
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
-
       let tick = e.target.ticker.value.toUpperCase();
       let shares = Number(e.target.numberOfShares.value);
-      let fee = Number(e.target.fee.value) / shares;
+      let sellPrice = Number(e.target.price.value);
+      let date = e.target.date.value;
+      let sellingFee = Number(e.target.fee.value);
+      let transactionType = e.target.transactionType.value;
+      let proceeds = Number(shares * sellPrice  - sellingFee);
+      let proceedsPerShare = Number((proceeds / shares).toFixed(2))
+      let sharesRemaining = Number(shares);
       collectionRef
       .where("ticker", "==", tick)
       .where("transactionType", "==", "buy")
@@ -65,22 +57,50 @@ export class Dashboard extends Component {
       .then(querySnapShot => {
         querySnapShot.docs.forEach( doc => {
           let obj = doc.data();
+        
+          let purchaseShares = Number(obj.numberOfShares);
           let sharesAvailable = Number(obj.sharesAvailable);
           let remainingCost = Number(obj.remainingCost);
-          let costPerShare = ((remainingCost / sharesAvailable) + fee).toFixed(2) ;
-          let shareToSell = Math.min(sharesAvailable, shares);
-          let costToSell = (shareToSell * costPerShare);
-          
-          if( shares != 0 ){
-            shares = shares - shareToSell;
-            remainingCost = (remainingCost - costToSell).toFixed(2);
-            sharesAvailable = sharesAvailable - shareToSell;
+          let totalCost = Number(obj.totalCost);
+          let fee = Number(obj.fee);
+          let gain = Number(obj.gain);
+
+          let sharesToSell = Math.min(sharesAvailable, sharesRemaining);
+          let costPerShare = (totalCost + fee) / purchaseShares;
+          let costToSell = Math.min( remainingCost, (sharesToSell * costPerShare));
+
+          let proceedsForLot = proceedsPerShare * sharesToSell;
+
+          if (sharesRemaining !== 0 && sharesAvailable !== 0) {
+            sharesRemaining = sharesRemaining - sharesToSell;
+            remainingCost = Number((remainingCost - costToSell).toFixed(2));
+            let gainOnLot = proceedsForLot - costToSell;
+            proceeds = proceeds - costToSell;
+            sharesAvailable = sharesAvailable - sharesToSell;
 
             obj.sharesAvailable = sharesAvailable;
-            obj.remainingCost = Number(remainingCost) + fee;
+            obj.remainingCost = remainingCost;
+            obj.gain = gain + gainOnLot;
             doc.ref.update(obj);
           }
         })
+
+      collectionRef.add({
+        ticker: tick,
+        numberOfShares: shares,
+        price: sellPrice,
+        date: date,
+        fee: sellingFee,
+        transactionType: transactionType,
+        gains: proceeds
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+        
       })
     }
    

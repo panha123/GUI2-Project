@@ -15,8 +15,16 @@ export class MarketVal extends Component {
 
       db.collection(`user/${uid}/transactions`).onSnapshot((querySnapshot) => {
         let total = 0;;
-          querySnapshot.forEach((doc) => {        
+          querySnapshot.forEach((doc) => {
+            console.log(doc.data().transactionType);
+            if (doc.data().transactionType === "buy"){
+              console.log("add val");
               total += (doc.data().price * doc.data().numberOfShares);
+            }
+            else {
+              console.log("minus val");
+              total -= (doc.data().price * doc.data().numberOfShares);
+            }
   
            });
   
