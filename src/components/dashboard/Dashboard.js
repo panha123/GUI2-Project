@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom";
 import {Avatar} from '../avatar/Avatar';
 import {InfoBox} from '../infoBox/InfoBox';
 import Graph from './Graph';
+import moment from 'moment';
+
 
 export class Dashboard extends Component {
 
@@ -106,10 +108,11 @@ export class Dashboard extends Component {
     }
 
   render() {
-    const { auth } = this.props;
+
     
-
-
+    const { auth } = this.props;
+    let date = new Date();
+    date = moment(date).format('YYYY-MM-DD');
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
@@ -131,7 +134,7 @@ export class Dashboard extends Component {
                     </div>
                     <div >
                       <label htmlFor="date">Date</label>
-                      <input required type="date" name="date"></input>
+                      <input type="date" name="date" defaultValue={date}/>
                     </div>
                     <div>
                       <label htmlFor="numberOfShares">Number of shares</label>
