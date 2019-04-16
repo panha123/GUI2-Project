@@ -17,7 +17,6 @@ export class Dashboard extends Component {
     const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
     const subcollections =[];
     const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
-
     if (e.target.transactionType.value === "buy") {
       collectionRef.add({
         ticker: e.target.ticker.value.toUpperCase(),

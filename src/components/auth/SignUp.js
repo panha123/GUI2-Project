@@ -12,7 +12,8 @@ export class SignUp extends Component {
         firstName: '',
         lastName: '',
         income: '',
-        filingStatus: ''
+        filingStatus: '',
+        dependents: ''
 
     }
 
@@ -76,6 +77,10 @@ export class SignUp extends Component {
                         <label htmlFor="filingstatus">Filing Status</label>
                         <input required type="text" id="filingstatus" onChange={this.handleChange}/>
                     </div>
+                    <div className="input-field">
+                        <label htmlFor="dependents">Number of Dependents</label>
+                        <input required type="number" min="0" id="dependents" onChange={this.handleChange}/>
+                    </div>
                                        
                     <br/><br/>
                     <button type="submit" className="waves-effect waves-light green btn" value="submit">Sign Up</button> 
@@ -103,5 +108,3 @@ const mapDispatchToProps =(dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-
-

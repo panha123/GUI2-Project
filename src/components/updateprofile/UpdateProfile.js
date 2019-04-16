@@ -19,7 +19,7 @@ export class UpdateProfile extends Component {
         avatar: '',
         isUploading: false,
         progress: 0,
-        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/stockportfolio-23ecf.appspot.com/o/images%2Fdefault-profile.png?alt=media&token=6ecf02e5-5a9f-4b3b-95e5-35142a01a5f9'
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/stockportfolio-23ecf.appspot.com/o/images%2Fdefault.jpeg?alt=media&token=c68bd22d-e430-4a13-9d7c-6f25276ece45'
     }
 
     handleChange = (e) => {
