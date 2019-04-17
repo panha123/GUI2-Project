@@ -59,57 +59,72 @@ export class Dashboard extends Component {
       .then(querySnapShot => {
 
         if(querySnapShot.docs.length > 0){
+
+          //get the total shares
+          let totalSharesOwned = 0;
           querySnapShot.docs.forEach( doc => {
             let obj = doc.data();
-          
-            let purchaseShares = Number(obj.numberOfShares);
-            let sharesAvailable = Number(obj.sharesAvailable);
-            let remainingCost = Number(obj.remainingCost);
-            let totalCost = Number(obj.totalCost);
-            let fee = Number(obj.fee);
-            let gain = Number(obj.gain);
-  
-            let sharesToSell = Math.min(sharesAvailable, sharesRemaining);
-            let costPerShare = (totalCost + fee) / purchaseShares;
-            let costToSell = Math.min( remainingCost, (sharesToSell * costPerShare));
-  
-            let proceedsForLot = proceedsPerShare * sharesToSell;
-  
-            if (sharesRemaining !== 0 && sharesAvailable !== 0) {
-              sharesRemaining = sharesRemaining - sharesToSell;
-              remainingCost = Number((remainingCost - costToSell).toFixed(2));
-              let gainOnLot = proceedsForLot - costToSell;
-              proceeds = proceeds - costToSell;
-              sharesAvailable = sharesAvailable - sharesToSell;
-  
-              obj.sharesAvailable = sharesAvailable;
-              obj.remainingCost = remainingCost;
-              obj.gain = gain + gainOnLot;
-              doc.ref.update(obj);
-            }
+            totalSharesOwned += Number(obj.sharesAvailable);
           })
-  
-          collectionRef.add({
-            ticker: tick,
-            numberOfShares: shares,
-            price: sellPrice,
-            date: date,
-            fee: sellingFee,
-            transactionType: transactionType,
-            gain: proceeds
-          })
-          .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-          })
-          .catch(function(error) {
-              console.error("Error adding document: ", error);
-          });
-        }
+
+          if( totalSharesOwned >= sharesRemaining )
+          { 
+            querySnapShot.docs.forEach( doc => {
+              let obj = doc.data();
+            
+              let purchaseShares = Number(obj.numberOfShares);
+              let sharesAvailable = Number(obj.sharesAvailable);
+              let remainingCost = Number(obj.remainingCost);
+              let totalCost = Number(obj.totalCost);
+              let fee = Number(obj.fee);
+              let gain = Number(obj.gain);
+    
+              let sharesToSell = Math.min(sharesAvailable, sharesRemaining);
+              let costPerShare = (totalCost + fee) / purchaseShares;
+              let costToSell = Math.min( remainingCost, (sharesToSell * costPerShare));
+    
+              let proceedsForLot = proceedsPerShare * sharesToSell;
+    
+              if (sharesRemaining !== 0 && sharesAvailable !== 0) {
+                sharesRemaining = sharesRemaining - sharesToSell;
+                remainingCost = Number((remainingCost - costToSell).toFixed(2));
+                let gainOnLot = proceedsForLot - costToSell;
+                proceeds = proceeds - costToSell;
+                sharesAvailable = sharesAvailable - sharesToSell;
+    
+                obj.sharesAvailable = sharesAvailable;
+                obj.remainingCost = remainingCost;
+                obj.gain = gain + gainOnLot;
+                doc.ref.update(obj);
+              }
+            })
+    
+            collectionRef.add({
+              ticker: tick,
+              numberOfShares: shares,
+              price: sellPrice,
+              date: date,
+              fee: sellingFee,
+              transactionType: transactionType,
+              gain: proceeds
+            })
+            .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+          }
+          else 
+            alert("Insufficient amount of shares to sell!!!")
+        }  
         else 
-          alert("Sorry you don't own the stocks!!")
-          
+          alert("Sorry you don't own the stocks!!!")  
       })
     }
+
+    // reset fields
+    e.target.reset();
   }
 
   render() {
