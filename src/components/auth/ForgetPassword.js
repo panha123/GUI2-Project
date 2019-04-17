@@ -39,7 +39,7 @@ export class ForgetPassword extends Component {
                     <form onSubmit={this.handleSubmit} className="white col m6">
                         <h5 className="grey-text text-darken-3">Reset Password</h5> 
                         <div className="input-field">
-                            <label htmlFor="email">You're email address</label>
+                            <label htmlFor="email">Your email address</label>
                             <input type="email"id="email" onChange={this.handleChange}/>
                         </div>
                         <div className="input-field"> 
