@@ -88,10 +88,10 @@ export class SignUp extends Component {
                     </div>
                     <div className="input-field">
                         <Select
-                                id="filingstatus"
-                                value={this.state.filingstatus}
-                                onChange={this.handleFiling}
-                                options={options}
+                            id="filingstatus"
+                            value={{label: this.state.filingstatus , value: this.state.filingstatus}}
+                            onChange={this.handleFiling}
+                            options={options}
                         />
                         {/* <label htmlFor="filingstatus">Filing Status</label>
                         <input required type="text" id="filingstatus" onChange={this.handleChange}/> */}
