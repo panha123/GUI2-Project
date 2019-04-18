@@ -3,7 +3,13 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/authAction';
 import firebase from 'firebase/app';
+import Select from 'react-select';
 
+const options = [
+    { value: 'single', label: 'Single' },
+    { value: 'married', label: 'Married' },
+    { value: 'head', label: 'Head of Household' }
+  ];
 
 export class SignUp extends Component {
     state = {
@@ -15,6 +21,13 @@ export class SignUp extends Component {
         filingStatus: '',
         dependents: ''
 
+    }
+
+    handleFiling = (e) => {
+        console.log(e.value);
+        this.setState({
+            filingstatus: e.value
+        })
     }
 
     handleChange = (e) => {
@@ -74,8 +87,14 @@ export class SignUp extends Component {
                         <input required type="number" min="0" id="income" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="filingstatus">Filing Status</label>
-                        <input required type="text" id="filingstatus" onChange={this.handleChange}/>
+                        <Select
+                                id="filingstatus"
+                                value={this.state.filingstatus}
+                                onChange={this.handleFiling}
+                                options={options}
+                        />
+                        {/* <label htmlFor="filingstatus">Filing Status</label>
+                        <input required type="text" id="filingstatus" onChange={this.handleChange}/> */}
                     </div>
                     <div className="input-field">
                         <label htmlFor="dependents">Number of Dependents</label>
