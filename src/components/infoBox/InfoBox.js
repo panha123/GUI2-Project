@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import {MarketVal} from '../marketVal/MarketVal';
 import {YTDGain} from '../ytdGain/YTDGain';
+import YTDTaxes from '../ytdTaxes/YTDTaxes';
 
 
 export class InfoBox extends Component {
@@ -25,10 +26,7 @@ export class InfoBox extends Component {
             <div>
                 <MarketVal />
                 <YTDGain />
-                <div className="InfoBox row center">
-                    <div className="col s6">YTD Taxes: </div>
-                    <div className="col s6" id="ytdTaxes">0</div>
-                </div>
+                <YTDTaxes />
             </div>
         )
     }

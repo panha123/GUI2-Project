@@ -11,8 +11,9 @@ export class SignUp extends Component {
         password: '',
         firstName: '',
         lastName: '',
-        income: '',
+        income: 0,
         filingStatus: '',
+        baseTax: 0,
         dependents: ''
 
     }
