@@ -6,7 +6,13 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import 'firebase/storage'
 import FileUploader from 'react-firebase-file-uploader';
+import Select from 'react-select';
 
+const options = [
+  { value: 'single', label: 'Single' },
+  { value: 'married', label: 'Married' },
+  { value: 'head', label: 'Head of Household' }
+];
 
 export class UpdateProfile extends Component {
 
@@ -25,6 +31,13 @@ export class UpdateProfile extends Component {
     handleChange = (e) => {
         this.setState({
             [e.target.id] : e.target.value
+        })
+    }
+
+    handleFiling = (e) => {
+        console.log(e.value);
+        this.setState({
+            filingstatus: e.value
         })
     }
 
@@ -95,8 +108,14 @@ export class UpdateProfile extends Component {
                         <div><input type="number" min="0" id="income" value={this.state.income} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <div><label htmlFor="filingstatus">Filing Status</label></div>
-                       <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div>
+                        <Select
+                            id="filingstatus"
+                            value={{label: this.state.filingstatus , value: this.state.filingstatus}}
+                            onChange={this.handleFiling}
+                            options={options}
+                        />
+                        {/* <div><label htmlFor="filingstatus">Filing Status</label></div>
+                       <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div> */}
                     </div>
                     <div className="input-field">
                         <div><label>Avatar:</label><br/>
