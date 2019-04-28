@@ -168,7 +168,7 @@ export class Dashboard extends Component {
             <form onSubmit={this.handleSubmit}>
                   <div className="inputfield">
                     <div>
-                      <label htmlFor="ticker"><h6>Stock Ticker Symbol</h6></label>
+                      <label htmlFor="ticker"><h6 className="blue-text text-darken-4">Stock Ticker Symbol</h6></label>
                       <Select
                           id="suggestion"
                           filterOption={createFilter({ ignoreAccents: false })}
@@ -180,19 +180,19 @@ export class Dashboard extends Component {
                       />
                     </div>
                     <div >
-                      <label htmlFor="date"><h6>Date</h6></label>
+                      <label htmlFor="date"><h6 className="blue-text text-darken-4">Date</h6></label>
                       <input type="date" name="date" defaultValue={date}/>
                     </div>
                     <div>
-                      <label htmlFor="numberOfShares"><h6>Number of shares</h6></label>
+                      <label htmlFor="numberOfShares"><h6 className="blue-text text-darken-4">Number of shares</h6></label>
                       <input required type="number" min="1" name="numberOfShares"/>
                     </div>
                     <div>
-                      <label htmlFor="price"><h6>Price</h6></label> 
+                      <label htmlFor="price"><h6 className="blue-text text-darken-4">Price</h6></label> 
                       <input required type="number" step="0.01"  min="0.01" name="price"/>
                     </div>
                     <div>
-                      <label htmlFor="fee"><h6>Fee</h6></label> 
+                      <label htmlFor="fee"><h6 className="blue-text text-darken-4">Fee</h6></label> 
                       <input required type="number" step="0.01"  min="0.01" name="fee"/>
                     </div>
                   </div>
@@ -201,11 +201,11 @@ export class Dashboard extends Component {
                   <div className="row">
                   <label>
                         <input name="group2" name="transactionType" value="buy" required type="radio" />
-                        <span className="radiobutton" ><h6>Buy</h6></span>
+                        <span className="radiobutton" ><h6 className="blue-text text-darken-4">Buy</h6></span>
                       </label>
                       <label>
                         <input name="group2" name="transactionType" value="sell" required type="radio" />
-                        <span className="radiobutton" ><h6>Sell</h6></span>
+                        <span className="radiobutton" ><h6 className="blue-text text-darken-4">Sell</h6></span>
                       </label>
                   </div>   
                   <br/> 

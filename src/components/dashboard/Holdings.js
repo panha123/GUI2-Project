@@ -87,10 +87,10 @@ export class Holdings extends Component {
 		<table>
 			<tbody>
 			<tr>
-				<th>Stock Ticker</th>
-				<th>Total Number of Shares</th>
-				<th>Current Price</th>
-				<th>Total Value</th>
+				<th><h6>Stock Ticker</h6></th>
+				<th><h6>Total Number of Shares</h6></th>
+				<th><h6>Current Price</h6></th>
+				<th><h6>Total Value</h6></th>
 			</tr>
 			{holdings}
 			</tbody>
