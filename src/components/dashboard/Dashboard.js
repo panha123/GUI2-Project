@@ -211,7 +211,7 @@ export class Dashboard extends Component {
                     </div>
                     <div>
                       <label htmlFor="fee"><h6 className="blue-text text-darken-4">Fee</h6></label> 
-                      <input required type="number" step="0.01"  min="0.01" name="fee"/>
+                      <input required type="number" step="0.01"  min="0" name="fee"/>
                     </div>
                   </div>
                 <br/>
