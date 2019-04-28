@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import firebase from 'firebase/app';
+import { couldStartTrivia } from 'typescript';
 
 export class YTDTaxes extends Component {
   state = {
@@ -17,8 +18,16 @@ export class YTDTaxes extends Component {
       let filingstatus = "";
       let income = 0;
       let baseTax = 0;
+      let longTermGain = 0;
+      let shortTermGain = 0;
+      let longTax = 0;
+      let shortTax = 0;
+      let tax = 0;
       const userRef = db.collection(`user`).doc(uid);
       const collectionRef = db.collection(`taxes`).doc("9GlfLqRkffAtVIV2onjC").collection(`taxTable`);
+      const transactionRef = db.collection(`user`).doc(uid).collection(`transactions`);
+      const capTaxRef = db.collection(`taxes`).doc("9GlfLqRkffAtVIV2onjC").collection(`capGainTaxTable`);
+
       
       userRef.get()
       .then( doc => {
@@ -60,14 +69,73 @@ export class YTDTaxes extends Component {
                   let rate = 0;
                   if (income > lowIncome && income <= highIncome) {
                     rate = obj.taxRate;
-                    //console.log("rate", rate);
                     baseTax = Number((obj.floorTax + (income - lowIncome) * rate).toFixed(2));
-                    console.log(baseTax);
+                    console.log("basetax: ", baseTax);
                   }
                 })
             })
+        )
+        .then (
+          transactionRef
+          .where("transactionType", "==", "sell")
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              let obj = doc.data();
+              longTermGain += obj.longTermGain;
+              shortTermGain += obj.shortTermGain;
+              console.log("ltg: ", longTermGain);
+              console.log("stg: ", shortTermGain);
+            })
+          })
+        )
+        .then (
+          collectionRef
+          .where("filingStatus","==", filingstatus)
+          .get()
+          .then(querySnapshot =>
+            {
+              querySnapshot.forEach(doc => {
+                const obj = doc.data();
+                const lowIncome = obj.minIncome;
+                const highIncome = obj.maxIncome;
+                income += shortTermGain;
+                let rate = 0;
+                if (income > lowIncome && income <= highIncome) {
+                  rate = obj.taxRate;
+                  shortTax += Number((obj.floorTax + (income - lowIncome) * rate).toFixed(2));
+                }
+                console.log("stt: ",shortTax);
+              })
+            })
+        )
+        .then (
+          capTaxRef
+          .where("filingStatus","==", filingstatus)
+          .get()
+          .then(querySnapshot =>
+            {
+              querySnapshot.forEach( doc => {
+                const obj = doc.data();
+                const lowIncome = obj.minIncome;
+                const highIncome = obj.maxIncome;
+                let rate = 0;
+                if (income > lowIncome && income <= highIncome) {
+                  rate = obj.taxRate;
+                  longTax += Number((longTermGain * rate).toFixed(2));
+                }
+                console.log("ltt: ", longTax);
+
+                tax = shortTax + longTax - baseTax;
+                this.setState({taxes: tax});
+                console.log("taxes: ", tax);
+               // this.setState({taxes: tax});
+               // this.forceUpdate();
+              })
+            })
         );
       })
+      
   }
 
     render() {

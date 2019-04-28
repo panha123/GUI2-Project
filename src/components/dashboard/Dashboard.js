@@ -36,7 +36,6 @@ export class Dashboard extends Component {
     const db = firebase.firestore();
     const uid =firebase.auth().currentUser.uid;
     const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
-    const subcollections =[];
     const collectionRef = db.collection(`user`).doc(uid).collection(`transactions`);
     if (e.target.transactionType.value === "buy") {
       collectionRef.add({
@@ -49,7 +48,9 @@ export class Dashboard extends Component {
         totalCost : cost,
         remainingCost: cost,
         sharesAvailable: Number(e.target.numberOfShares.value),
-        gain: 0
+        gain: 0,
+        longTermGain: 0,
+        shortTemGain:0
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
@@ -69,6 +70,8 @@ export class Dashboard extends Component {
       let proceeds = Number(shares * sellPrice  - sellingFee);
       let proceedsPerShare = Number((proceeds / shares).toFixed(2))
       let sharesRemaining = Number(shares);
+      let ltGain = 0;
+      let stGain = 0;
 
       collectionRef
       .where("ticker", "==", tick)
@@ -97,6 +100,7 @@ export class Dashboard extends Component {
               let totalCost = Number(obj.totalCost);
               let fee = Number(obj.fee);
               let gain = Number(obj.gain);
+              let buyDate = obj.date;
     
               let sharesToSell = Math.min(sharesAvailable, sharesRemaining);
               let costPerShare = (totalCost + fee) / purchaseShares;
@@ -108,12 +112,24 @@ export class Dashboard extends Component {
                 sharesRemaining = sharesRemaining - sharesToSell;
                 remainingCost = Number((remainingCost - costToSell).toFixed(2));
                 let gainOnLot = proceedsForLot - costToSell;
+                let bDate = new Date(buyDate);
+                let sDate = new Date(date);
+                let diffDate = Math.abs(sDate.getTime() - bDate.getTime());
+                let diffDays = Math.ceil(diffDate / (1000 * 60 * 60 * 24));
                 proceeds = proceeds - costToSell;
                 sharesAvailable = sharesAvailable - sharesToSell;
     
                 obj.sharesAvailable = sharesAvailable;
                 obj.remainingCost = remainingCost;
                 obj.gain = gain + gainOnLot;
+                if (diffDays > 365) {
+                      obj.longTermGain = gainOnLot;
+                      ltGain += gainOnLot;
+                }
+                else {
+                  obj.shortTermGain = gainOnLot;
+                  stGain += gainOnLot;
+                }
                 doc.ref.update(obj);
               }
             })
@@ -125,7 +141,9 @@ export class Dashboard extends Component {
               date: date,
               fee: sellingFee,
               transactionType: transactionType,
-              gain: proceeds
+              gain: proceeds,
+              shortTermGain: stGain,
+              longTermGain: ltGain
             })
             .then(function(docRef) {
               console.log("Document written with ID: ", docRef.id);
