@@ -12,7 +12,6 @@ import Select, { createFilter } from "react-select";
 import * as d3 from 'd3';
 import file from '../../files/Ticker.csv';
 
-
 let searchItems = []
 
 d3.csv(file, (data) => {
@@ -22,7 +21,8 @@ d3.csv(file, (data) => {
 export class Dashboard extends Component {
 
   state = {
-    suggestion : ''
+    suggestion : '',
+    redirectTo: false
   }
 
   handleSuggestion = (e) => {
@@ -159,16 +159,28 @@ export class Dashboard extends Component {
           alert("Sorry you don't own the stocks!!!")  
       })
     }
-    // reset fields
+
+    
+    this.setState({
+      redirectTo: true
+    })
     e.target.reset();
   }
-
 
 
   render() {
 
     const { auth } = this.props;
     let date = new Date();
+    let redirectTo = this.state.redirectTo;
+
+    if(redirectTo === true) {
+      this.setState({
+        redirectTo: false
+      })
+      return <Redirect to="/" />;
+    }
+
     date = moment(date).format('YYYY-MM-DD');
     if (!auth.uid) {
       return <Redirect to="/signin" />;
