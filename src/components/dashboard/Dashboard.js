@@ -13,7 +13,7 @@ import moment from 'moment';
 export class Dashboard extends Component {
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const db = firebase.firestore();
     const uid =firebase.auth().currentUser.uid;
     const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
@@ -122,7 +122,6 @@ export class Dashboard extends Component {
           alert("Sorry you don't own the stocks!!!")  
       })
     }
-
     // reset fields
     e.target.reset();
   }
