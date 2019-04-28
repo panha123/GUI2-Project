@@ -73,8 +73,8 @@ export class YTDTaxes extends Component {
     render() {
         return (
            <div className="InfoBox row center">
-                    <div className="col s6">YTD Taxes: </div>
-                    <div className="col s6" id="ytdTaxes">{this.state.taxes}</div>
+                    <div className="col s6"><h5><strong>YTD Taxes:</strong></h5> </div>
+                    <div className="col s6" id="ytdTaxes"><h5>{this.state.taxes}</h5></div>
             </div>
         )
     }

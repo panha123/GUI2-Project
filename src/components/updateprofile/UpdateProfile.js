@@ -87,37 +87,36 @@ export class UpdateProfile extends Component {
 
         return (
             <div className="container z-depth-4 updateprofile">
-                <form onSubmit={this.handleSubmit} className="white">
-                    <h5 className="grey-text text-darken-3">Update Profile</h5>
+                <form onSubmit={this.handleSubmit} className="white" id="signedIn">
+                    <h4 className="grey-text text-darken-3"><strong>Update Profile</strong></h4>
                     <br/>
                     <div className="input-field">
-                        <div><label htmlFor="firstName">First Name</label></div>
+                        <div><label htmlFor="firstName"><h6>First Name</h6></label></div>
                         <div><input type="text" id="firstName"  value={this.state.firstName} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <div><label htmlFor="lastName">Last Name</label></div>
+                        <div><label htmlFor="lastName"><h6>Last Name</h6></label></div>
                         <div><input type="text" id="lastName"  value={this.state.lastName} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <div><label htmlFor="email">Email</label></div>
+                        <div><label htmlFor="email"><h6>Email</h6></label></div>
                         <div><input type="email" id="email" value={this.state.email} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
-                        <div><label htmlFor="income">Income</label></div>
+                        <div><label htmlFor="income"><h6>Income</h6></label></div>
                         <div><input type="number" min="0" id="income" value={this.state.income} onChange={this.handleChange}/></div>
                     </div>
                     <div className="input-field">
+                        <div><label htmlFor="income"><h6>Filing Status</h6></label></div>
                         <Select
                             id="filingstatus"
                             value={{label: this.state.filingstatus , value: this.state.filingstatus}}
                             onChange={this.handleFiling}
                             options={options}
                         />
-                        {/* <div><label htmlFor="filingstatus">Filing Status</label></div>
-                       <div><input type="text" id="filingstatus" value={this.state.filingstatus} onChange={this.handleChange}/></div> */}
                     </div>
                     <div className="input-field">
-                        <div><label>Avatar:</label><br/>
+                        <div><label><h6>Avatar:</h6></label><br/>
                         {this.state.isUploading &&<p>Progress: {this.state.progress}</p>}
                         {this.state.avatarURL && <img src={this.state.avatarURL} width="200" height="200" />}</div>
                         <div><FileUploader
@@ -131,9 +130,8 @@ export class UpdateProfile extends Component {
                             onProgress={this.handleProgress}
                         /></div>
                     </div>
-                    <br/>
                     <div className="input-field"> 
-                        <button className="waves-effect waves-light btn green left" >Submit</button>
+                        <button className="waves-effect waves-light btn green left" ><strong>Submit</strong></button>
                     </div>
                     <br/><br/><br/>
                 </form>

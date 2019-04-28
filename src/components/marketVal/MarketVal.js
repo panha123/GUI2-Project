@@ -33,8 +33,8 @@ export class MarketVal extends Component {
     render() {
         return (
            <div className="InfoBox row center">
-                    <div className="col s6">Market Value: </div>
-                    <div className="col s6" id="marketValue">{this.state.totalVal}</div>
+                    <div className="col s6"><h5><strong>Market Value: </strong></h5> </div>
+                    <div className="col s6" id="marketValue"><h5>{this.state.totalVal}</h5></div>
             </div>
         )
     }

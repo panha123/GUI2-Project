@@ -21,7 +21,6 @@ export class SignUp extends Component {
         filingStatus: '',
         baseTax: 0,
         dependents: ''
-
     }
 
     handleFiling = (e) => {
@@ -64,45 +63,46 @@ export class SignUp extends Component {
         }
         return (
             <div className="container z-depth-3 signup">
-                <form onSubmit={this.handleSubmit} className="white">
-                    <h5 className="grey-text text-darken-3">Sign Up</h5>
+                <form onSubmit={this.handleSubmit} className="white" id="signedIn">
+                    <h6 className="grey-text text-darken-3"><strong>Sign Up</strong></h6>
                     <br/>
                     <div className="input-field">
-                        <label htmlFor="firstName">First Name</label>
+                        <label htmlFor="firstName"><h6>First Name</h6></label>
                         <input required type="text" id="firstName" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
+                        <label htmlFor="lastName"><h6>Last Name</h6></label>
                         <input required type="text" id="lastName" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email"><h6>Email</h6></label>
                         <input required type="email" id="email" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password"><h6>Password</h6></label>
                         <input required type="password" id="password" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="income">Income</label>
+                        <label htmlFor="income"><h6>Income</h6></label>
                         <input required type="number" min="0" id="income" onChange={this.handleChange}/>
                     </div>
+
+                    <label htmlFor="filingstatus"><h6>Filing Status</h6></label>
                     <div className="input-field">
                         <Select
+                            placeholder="Filing Status"
                             id="filingstatus"
                             value={{label: this.state.filingstatus , value: this.state.filingstatus}}
                             onChange={this.handleFiling}
                             options={options}
                         />
-                        {/* <label htmlFor="filingstatus">Filing Status</label>
-                        <input required type="text" id="filingstatus" onChange={this.handleChange}/> */}
                     </div>
-                    <div className="input-field">
+                    {/* <div className="input-field">
                         <label htmlFor="dependents">Number of Dependents</label>
                         <input required type="number" min="0" id="dependents" onChange={this.handleChange}/>
-                    </div>
+                    </div> */}
                                        
-                    <br/><br/>
+                    <br/><br/> <br/><br/><br/>
                     <button type="submit" className="waves-effect waves-light green btn" value="submit">Sign Up</button> 
                         <div className="red-text center">
                             { authError ? <p>{ authError }</p> : null }
