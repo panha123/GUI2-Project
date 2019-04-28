@@ -26,9 +26,7 @@ export class YTDGain extends Component {
             });
             }
             
-           });
-  
-         
+           }); 
       });    
   }
     render() {
