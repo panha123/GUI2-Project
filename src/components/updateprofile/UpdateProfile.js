@@ -35,7 +35,6 @@ export class UpdateProfile extends Component {
     }
 
     handleFiling = (e) => {
-        console.log(e.value);
         this.setState({
             filingstatus: e.value
         })

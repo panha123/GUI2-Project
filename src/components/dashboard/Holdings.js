@@ -74,8 +74,8 @@ export class Holdings extends Component {
 		// //this.myFunc();
 		// console.log(this.state)
 	
-	const holdings = Object.keys(this.state.tickers).map((key =>
-		(<tr>
+	const holdings = Object.keys(this.state.tickers).map(((key, index) =>
+		(<tr key={index}>
 			<td>{key}</td>
 			<td>{this.state.tickers[key]["totalShares"]}</td>
 			<td>{this.state.tickers[key]["currentPrice"]}</td>
