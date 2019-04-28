@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
 import firebase from 'firebase/app';
 import moment from 'moment';
@@ -70,7 +70,7 @@ componentDidMount() {
            let data = [];
            data = Object.entries(unique).forEach(entry => {
                 let key = entry[0];
-                let value = entry[1].totalShares * 10;
+                let value = entry[1].totalShares;
                 dataVal.push(value);
                 tickerVal.push(key);
            })
@@ -149,7 +149,20 @@ componentDidMount() {
     return (
       <div>
         <div className="graph z-depth-4">
-            <Bar data={data} width={400} height={100}/>
+			<HorizontalBar data={data} 
+				width={400} 
+				height={300}
+				options={{ 
+					maintainAspectRatio: false,
+					scales: {
+						xAxes: [{
+						  ticks: {
+							beginAtZero: true
+						  }
+						}]
+					  } 
+				}}
+			/>
         </div>
       </div>
     )
