@@ -46,7 +46,7 @@ export class Avatar extends Component {
                 <div>
                     {this.renderRedirect()}
                 </div>
-                <span id="UserName center red-text"><h4>{this.state.firstName} , {this.state.lastName}</h4></span>
+                <span id="UserName center red-text"><h4>{this.state.lastName}, {this.state.firstName}</h4></span>
             </div>
         )
     }

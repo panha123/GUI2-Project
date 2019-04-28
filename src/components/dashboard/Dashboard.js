@@ -8,12 +8,31 @@ import {Avatar} from '../avatar/Avatar';
 import {InfoBox} from '../infoBox/InfoBox';
 import Graph from './Graph';
 import moment from 'moment';
+import Select, { createFilter } from "react-select";
+import * as d3 from 'd3';
+import file from '../../files/Ticker.csv';
 
+
+let searchItems = []
+
+d3.csv(file, (data) => {
+  searchItems.push({value:data.Symbol, label: data.Name});
+})
 
 export class Dashboard extends Component {
 
+  state = {
+    suggestion : ''
+  }
+
+  handleSuggestion = (e) => {
+    this.setState({
+      suggestion: e.value
+    })
+  } 
+
   handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const db = firebase.firestore();
     const uid =firebase.auth().currentUser.uid;
     const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
@@ -126,6 +145,8 @@ export class Dashboard extends Component {
     e.target.reset();
   }
 
+
+
   render() {
 
     const { auth } = this.props;
@@ -148,7 +169,15 @@ export class Dashboard extends Component {
                   <div className="inputfield">
                     <div>
                       <label htmlFor="ticker">Stock Ticker Symbol</label>
-                      <input required type="text" name="ticker"></input>
+                      <Select
+                          id="suggestion"
+                          filterOption={createFilter({ ignoreAccents: false })}
+                          value={{label: this.state.suggestion , value: this.state.suggestion}}
+                          onChange={this.handleSuggestion}
+                          options={searchItems}
+                          name="ticker"
+                          required
+                      />
                     </div>
                     <div >
                       <label htmlFor="date">Date</label>
@@ -156,30 +185,19 @@ export class Dashboard extends Component {
                     </div>
                     <div>
                       <label htmlFor="numberOfShares">Number of shares</label>
-                      <input required type="number" min="1" name="numberOfShares"></input>
+                      <input required type="number" min="1" name="numberOfShares"/>
                     </div>
                     <div>
                       <label htmlFor="price">Price</label> 
-                      <input required type="number" step="0.01"  min="0.01" name="price"></input>
+                      <input required type="number" step="0.01"  min="0.01" name="price"/>
                     </div>
                     <div>
                       <label htmlFor="fee">Fee</label> 
-                      <input required type="number" step="0.01"  min="0.01" name="fee"></input>
+                      <input required type="number" step="0.01"  min="0.01" name="fee"/>
                     </div>
                   </div>
                 <br/>
                 <div className="row container">
-                  <div className="row">
-                    <label>
-                      <input name="group1" type="radio" />
-                      <span className="radiobutton" name="scenario" value="whatIf">What If Simulation</span>
-                    </label>
-                      
-                    <label>
-                      <input name="group1" type="radio" />
-                      <span className="radiobutton" name="scenario" value="record">Record</span>
-                    </label>
-                  </div>
                   <div className="row">
                   <label>
                         <input name="group2" name="transactionType" value="buy" required type="radio" />
