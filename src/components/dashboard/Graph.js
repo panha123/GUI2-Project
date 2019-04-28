@@ -151,7 +151,7 @@ componentDidMount() {
         <div className="graph z-depth-4">
 			<HorizontalBar data={data} 
 				width={400} 
-				height={300}
+				height={500}
 				options={{ 
 					maintainAspectRatio: false,
 					scales: {
