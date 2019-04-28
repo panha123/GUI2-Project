@@ -20,6 +20,12 @@ body {
 
 form {
   padding: 20px;
+ 
+}
+
+form#signedIn {
+  width: 800px;
+  margin-left: 15%;
 }
 
 form button, form h5 {

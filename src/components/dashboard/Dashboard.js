@@ -8,9 +8,28 @@ import {Avatar} from '../avatar/Avatar';
 import {InfoBox} from '../infoBox/InfoBox';
 import Graph from './Graph';
 import moment from 'moment';
+import Select, { createFilter } from "react-select";
+import * as d3 from 'd3';
+import file from '../../files/Ticker.csv';
 
+
+let searchItems = []
+
+d3.csv(file, (data) => {
+  searchItems.push({value:data.Symbol, label: data.Name});
+})
 
 export class Dashboard extends Component {
+
+  state = {
+    suggestion : ''
+  }
+
+  handleSuggestion = (e) => {
+    this.setState({
+      suggestion: e.value
+    })
+  } 
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -140,10 +159,11 @@ export class Dashboard extends Component {
           alert("Sorry you don't own the stocks!!!")  
       })
     }
-
     // reset fields
     e.target.reset();
   }
+
+
 
   render() {
 
@@ -166,24 +186,32 @@ export class Dashboard extends Component {
             <form onSubmit={this.handleSubmit}>
                   <div className="inputfield">
                     <div>
-                      <label htmlFor="ticker">Stock Ticker Symbol</label>
-                      <input required type="text" name="ticker"></input>
+                      <label htmlFor="ticker"><h6 className="blue-text text-darken-4">Stock Ticker Symbol</h6></label>
+                      <Select
+                          id="suggestion"
+                          filterOption={createFilter({ ignoreAccents: false })}
+                          value={{label: this.state.suggestion , value: this.state.suggestion}}
+                          onChange={this.handleSuggestion}
+                          options={searchItems}
+                          name="ticker"
+                          required
+                      />
                     </div>
                     <div >
-                      <label htmlFor="date">Date</label>
+                      <label htmlFor="date"><h6 className="blue-text text-darken-4">Date</h6></label>
                       <input type="date" name="date" defaultValue={date}/>
                     </div>
                     <div>
-                      <label htmlFor="numberOfShares">Number of shares</label>
-                      <input required type="number" min="1" name="numberOfShares"></input>
+                      <label htmlFor="numberOfShares"><h6 className="blue-text text-darken-4">Number of shares</h6></label>
+                      <input required type="number" min="1" name="numberOfShares"/>
                     </div>
                     <div>
-                      <label htmlFor="price">Price</label> 
-                      <input required type="number" step="0.01"  min="0.01" name="price"></input>
+                      <label htmlFor="price"><h6 className="blue-text text-darken-4">Price</h6></label> 
+                      <input required type="number" step="0.01"  min="0.01" name="price"/>
                     </div>
                     <div>
-                      <label htmlFor="fee">Fee</label> 
-                      <input required type="number" step="0.01"  min="0.01" name="fee"></input>
+                      <label htmlFor="fee"><h6 className="blue-text text-darken-4">Fee</h6></label> 
+                      <input required type="number" step="0.01"  min="0.01" name="fee"/>
                     </div>
                   </div>
                 <br/>
@@ -191,15 +219,15 @@ export class Dashboard extends Component {
                   <div className="row">
                   <label>
                         <input name="group2" name="transactionType" value="buy" required type="radio" />
-                        <span className="radiobutton" >Buy</span>
+                        <span className="radiobutton" ><h6 className="blue-text text-darken-4">Buy</h6></span>
                       </label>
                       <label>
                         <input name="group2" name="transactionType" value="sell" required type="radio" />
-                        <span className="radiobutton" >Sell</span>
+                        <span className="radiobutton" ><h6 className="blue-text text-darken-4">Sell</h6></span>
                       </label>
                   </div>   
                   <br/> 
-                    <button type="submit" className="waves-effect waves-light green btn" value="submit">Submit</button> 
+                    <button type="submit" className="waves-effect waves-light green btn" value="submit"><strong>Submit</strong></button> 
                 </div>
             </form>
             

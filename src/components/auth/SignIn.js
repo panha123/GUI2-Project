@@ -29,16 +29,15 @@ export class SignIn extends Component {
         return (
             <div className="container signin center z-depth-4">
                 <div className="card-image cdimg">
-                    {/* <img src={Stock}  alt="stock" className="imgstock" /> */}
                 </div>
                 <form onSubmit={this.handleSubmit} className=" card-content">
-                    <h5 className="grey-text text-darken-3">Sign In</h5> 
+                    <h6 className="grey-text text-darken-3">Sign In</h6> 
                     <div className="input-field">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email"><h6>Email</h6></label>
                         <input type="email"id="email" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password"><h6>Password</h6></label>
                         <input type="password"id="password" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field"> 

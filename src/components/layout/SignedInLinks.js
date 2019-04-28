@@ -8,10 +8,10 @@ const SignedInLinks = (props) => {
   return (
     <div>
       <ul className="right">
-        <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/updateprofile'>Profile</NavLink></li>
-        <li><NavLink to='/holdings'>Holdings</NavLink></li>
-        <li><a onClick={props.signOut}>Sign Out</a> </li>
+        <li><NavLink to='/'><h5>Home</h5></NavLink></li>
+        <li><NavLink to='/updateprofile'><h5>Profile</h5></NavLink></li>
+        <li><NavLink to='/holdings'><h5>Holdings</h5></NavLink></li>
+        <li><a onClick={props.signOut}><h5>Sign Out</h5></a> </li>
       </ul>
     </div>
   )

@@ -32,8 +32,8 @@ export class YTDGain extends Component {
     render() {
         return (
            <div className="InfoBox row center">
-                    <div className="col s6">YTD Gains: </div>
-                    <div className="col s6" id="ytdGain">{this.state.gains}</div>
+                    <div className="col s6"><h5><strong>YTD Gaines:</strong></h5></div>
+                    <div className="col s6" id="ytdGain"><h5>{this.state.gains}</h5></div>
             </div>
         )
     }

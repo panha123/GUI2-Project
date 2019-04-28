@@ -74,8 +74,8 @@ export class Holdings extends Component {
 		// //this.myFunc();
 		// console.log(this.state)
 	
-	const holdings = Object.keys(this.state.tickers).map((key =>
-		(<tr>
+	const holdings = Object.keys(this.state.tickers).map(((key, index) =>
+		(<tr key={index}>
 			<td>{key}</td>
 			<td>{this.state.tickers[key]["totalShares"]}</td>
 			<td>{this.state.tickers[key]["currentPrice"]}</td>
@@ -87,10 +87,10 @@ export class Holdings extends Component {
 		<table>
 			<tbody>
 			<tr>
-				<th>Stock Ticker</th>
-				<th>Total Number of Shares</th>
-				<th>Current Price</th>
-				<th>Total Value</th>
+				<th><h6>Stock Ticker</h6></th>
+				<th><h6>Total Number of Shares</h6></th>
+				<th><h6>Current Price</h6></th>
+				<th><h6>Total Value</h6></th>
 			</tr>
 			{holdings}
 			</tbody>

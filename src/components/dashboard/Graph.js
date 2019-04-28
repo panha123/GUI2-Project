@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
 import firebase from 'firebase/app';
 import moment from 'moment';
@@ -43,7 +43,7 @@ componentDidMount() {
     let unique = {};
     collectionRef
         .where("transactionType", "==", "buy")
-        .where("date", ">=", twodays)
+        .where("date", ">=", sixdays)
         .where("date", "<=", today)
         .orderBy("date", "asc")
         .get()
@@ -70,7 +70,7 @@ componentDidMount() {
            let data = [];
            data = Object.entries(unique).forEach(entry => {
                 let key = entry[0];
-                let value = entry[1].totalShares * 10;
+                let value = entry[1].totalShares;
                 dataVal.push(value);
                 tickerVal.push(key);
            })
@@ -112,44 +112,24 @@ componentDidMount() {
           data: dataValues,
         }]
       };
-    // const data = {
-    //     labels: [
-    //         sixdays,
-    //         fivedays,
-    //         fourdays,
-    //         threedays,
-    //         twodays,
-    //         onedays,
-    //         today, 
-    //     ],
-    //     datasets: [
-    //         {
-    //         label: 'Total Stock Value',
-    //         fill: true,
-    //         lineTension: 0.1,
-    //         backgroundColor: '#FF6347',
-    //         borderColor: '#FF6347',
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: '#FF6347',
-    //         pointBackgroundColor: '#fff',
-    //         pointBorderWidth: 5,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: '#FF6347',
-    //         pointHoverBorderColor: '#FF6347',
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         data: dataValues
-    //         }
-    //     ],
-    //     };
+
     return (
       <div>
         <div className="graph z-depth-4">
-            <Bar data={data} width={400} height={100}/>
+			<HorizontalBar data={data} 
+				width={400} 
+				height={500}
+				options={{ 
+					maintainAspectRatio: false,
+					scales: {
+						xAxes: [{
+						  ticks: {
+							beginAtZero: true
+						  }
+						}]
+					  } 
+				}}
+			/>
         </div>
       </div>
     )
