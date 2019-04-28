@@ -19,8 +19,6 @@ d3.csv(file, (data) => {
   searchItems.push({value:data.Symbol, label: data.Name});
 })
 
-console.log(searchItems);
-
 export class Dashboard extends Component {
 
   state = {
@@ -28,14 +26,13 @@ export class Dashboard extends Component {
   }
 
   handleSuggestion = (e) => {
-    console.log(e.value);
     this.setState({
       suggestion: e.value
     })
   } 
 
   handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const db = firebase.firestore();
     const uid =firebase.auth().currentUser.uid;
     const cost = Number(e.target.fee.value) +  Number(e.target.numberOfShares.value * e.target.price.value);
@@ -201,17 +198,6 @@ export class Dashboard extends Component {
                   </div>
                 <br/>
                 <div className="row container">
-                  <div className="row">
-                    <label>
-                      <input name="group1" type="radio" />
-                      <span className="radiobutton" name="scenario" value="whatIf">What If Simulation</span>
-                    </label>
-                      
-                    <label>
-                      <input name="group1" type="radio" />
-                      <span className="radiobutton" name="scenario" value="record">Record</span>
-                    </label>
-                  </div>
                   <div className="row">
                   <label>
                         <input name="group2" name="transactionType" value="buy" required type="radio" />
