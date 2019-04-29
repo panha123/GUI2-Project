@@ -18,7 +18,7 @@ export class YTDGain extends Component {
           querySnapshot.forEach((doc) => {
             let gain = 0;
             if (doc.data().transactionType === "sell"){
-              gain = Number(doc.data().gain);
+              gain = Number(doc.data().gain).toFixed(2);
               gains += gain;
 
               this.setState({
