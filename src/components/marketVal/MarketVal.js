@@ -24,32 +24,23 @@ export class MarketVal extends Component {
         let total = 0;;
           querySnapshot.forEach((doc) => {
             const obj = doc.data();
-            console.log(obj);
             let shares = obj.sharesAvailable;
-            console.log("shares: ", shares);
             let tick = obj.ticker;
             let curPrice = 0;
             alpha.data.quote(tick, "json").then( data =>{
               curPrice = Number(data["Global Quote"]["05. price"]);
               curPrice = Number(curPrice.toFixed(2));
-              console.log(tick + " " + curPrice);
               if (doc.data().transactionType === "buy"){
                 total += (curPrice * Number(shares));
-                console.log("t+ ", total);
-                this.setState({
-                  totalVal: total
-              });
               }
               else {
                   total -= (curPrice * Number(shares));
-                  console.log("t- ", total);
-                  this.setState({
-                    totalVal: total
-                });
+                  
               }
-            })
-            console.log("total  ", total);
-            
+              this.setState({
+                totalVal: total
+              });
+            })            
            });
          
       });    
