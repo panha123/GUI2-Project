@@ -129,7 +129,7 @@ export class YTDTaxes extends Component {
                 tax = shortTax + longTax - baseTax;
                 
                 console.log("taxes: ", tax);
-                this.setState({taxes: tax});
+                this.setState({taxes: tax.toFixed(2)});
 
                // this.setState({taxes: tax});
                // this.forceUpdate();

@@ -22,7 +22,7 @@ export class YTDGain extends Component {
               gains += gain;
 
               this.setState({
-                gains: gains
+                gains: gains.toFixed(2)
             });
             }
             
