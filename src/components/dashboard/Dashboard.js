@@ -201,6 +201,7 @@ export class Dashboard extends Component {
                       <label htmlFor="ticker"><h6 className="blue-text text-darken-4">Stock Ticker Symbol</h6></label>
                       <Select
                           id="suggestion"
+                          defaultValue="Search for ticker...."
                           filterOption={createFilter({ ignoreAccents: false })}
                           value={{label: this.state.suggestion , value: this.state.suggestion}}
                           onChange={this.handleSuggestion}
