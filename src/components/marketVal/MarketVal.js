@@ -26,7 +26,7 @@ export class MarketVal extends Component {
            });
   
           this.setState({
-              totalVal: total
+              totalVal: total.toFixed(2)
           });
       });    
   }
