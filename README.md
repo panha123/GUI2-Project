@@ -39,14 +39,6 @@ We based our projects on a two week sprint with the exception of the first two w
 | Week 11 | Present | Everyone |
 
 
-   
-## Prerequesites
-Here we will list a step by step guide on how to get the dev environment running
-
-
-## Examples of how it works
-
-
 ## How to install
 1. cd into directory
 2. git clone https://github.com/panha123/GUI2-Project.git
